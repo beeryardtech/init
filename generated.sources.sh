@@ -17,12 +17,14 @@ if [[ $EUID -ne 0 ]]; then
 fi
  
 # Gernated by http://repogen.simplylinux.ch/generate.php
-apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 614C4B38
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 614C4B38
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6E80C6B7
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 75198A89
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 28949509
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B1510FD
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4C9D234C
+
+# XFCE4 - Xbuntu
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 142986CE
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8AC93F7A
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1378B444
@@ -32,7 +34,14 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0FEB6DD9
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4E9CFF4E
 
+# Tor project
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 74A941BA219EC810
 
+# Weather indicator
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6A9653F936FD5529
+
+# Solaar
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 90AACB8406524FBA
 
 # Dropbox
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5044912E 

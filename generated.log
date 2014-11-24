@@ -1,0 +1,150 @@
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.bxJoY9FcLd --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 614C4B38
+gpg: requesting key 614C4B38 from hkp server keyserver.ubuntu.com
+gpg: key 614C4B38: "Launchpad otto06217" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.DmFE5oaNxB --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 6E80C6B7
+gpg: requesting key 6E80C6B7 from hkp server keyserver.ubuntu.com
+gpg: key 6E80C6B7: "Launchpad PPA for Banshee Team" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.9hQDEeq1vS --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 75198A89
+gpg: requesting key 75198A89 from hkp server keyserver.ubuntu.com
+gpg: key 75198A89: "Launchpad Ubuntu Furry Remix 9.10" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.aRJDox6qQ2 --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 28949509
+gpg: requesting key 28949509 from hkp server keyserver.ubuntu.com
+gpg: key 28949509: "Launchpad Gwendal Le Bihan" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.9Gae9Ja910 --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 3B1510FD
+gpg: requesting key 3B1510FD from hkp server keyserver.ubuntu.com
+gpg: key 3B1510FD: "Launchpad PPA for GNOME3 Team" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.97djenpyh6 --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 4C9D234C
+gpg: requesting key 4C9D234C from hkp server keyserver.ubuntu.com
+gpg: key 4C9D234C: "Launchpad webupd8" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.fmBox3Lgdb --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 142986CE
+gpg: requesting key 142986CE from hkp server keyserver.ubuntu.com
+gpg: key 142986CE: "Launchpad PPA for Xubuntu Developers" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.fbfwoNdY32 --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 8AC93F7A
+gpg: requesting key 8AC93F7A from hkp server keyserver.ubuntu.com
+gpg: key 8AC93F7A: "Launchpad Kubuntu Updates" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.kL7uAAyUtB --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 1378B444
+gpg: requesting key 1378B444 from hkp server keyserver.ubuntu.com
+gpg: key 1378B444: "Launchpad PPA for LibreOffice Packaging" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.z3Gw5Wod1i --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 0624A220
+gpg: requesting key 0624A220 from hkp server keyserver.ubuntu.com
+gpg: key 0624A220: "Launchpad PPA for TualatriX" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.ufQOETMafm --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys FC91AE7E
+gpg: requesting key FC91AE7E from hkp server keyserver.ubuntu.com
+gpg: key FC91AE7E: "Launchpad PPA for Geza Kovacs" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.cuCGgaqmid --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 0FEB6DD9
+gpg: requesting key 0FEB6DD9 from hkp server keyserver.ubuntu.com
+gpg: key 0FEB6DD9: "Launchpad PPA for Florian Diesch" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.EjEnx2T1NX --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys EEA14886
+gpg: requesting key EEA14886 from hkp server keyserver.ubuntu.com
+gpg: key EEA14886: "Launchpad VLC" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.tlxuiPZcKL --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 4E9CFF4E
+gpg: requesting key 4E9CFF4E from hkp server keyserver.ubuntu.com
+gpg: key 4E9CFF4E: "Spotify Public Repository Signing Key <operations@spotify.com>" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.Z5saPtfhwH --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys FE56EB12FA2AF90A
+gpg: requesting key FA2AF90A from hkp server keyserver.ubuntu.com
+gpg: key FA2AF90A: public key "Launchpad PPA for Lester Carballo Pérez" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.rTBVN9CJUl --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 83549DA35C8B1281
+gpg: requesting key 5C8B1281 from hkp server keyserver.ubuntu.com
+gpg: key 5C8B1281: public key "Launchpad PPA for Pithos Developers" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.TcFJJXxNt0 --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 74A941BA219EC810
+gpg: requesting key 219EC810 from hkp server keyserver.ubuntu.com
+gpg: key 886DDD89: "deb.torproject.org archive signing key" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.9hOUygFyr8 --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 6A9653F936FD5529
+gpg: requesting key 36FD5529 from hkp server keyserver.ubuntu.com
+gpg: key 36FD5529: "Launchpad PPA for atareao" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.ysBrUx68tK --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 90AACB8406524FBA
+gpg: requesting key 06524FBA from hkp server keyserver.ubuntu.com
+gpg: key 06524FBA: "Launchpad PPA for Daniel Pavel" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.99738lv9Eg --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 5044912E
+gpg: requesting key 5044912E from hkp server keyserver.ubuntu.com
+gpg: key 5044912E: "Dropbox Automatic Signing Key <linux@dropbox.com>" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.G9vpfMGaHk --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 082CCEDF94558F59
+gpg: requesting key 94558F59 from hkp server keyserver.ubuntu.com
+gpg: key 94558F59: "Spotify Public Repository Signing Key <operations@spotify.com>" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.b2coBAmEly --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys F24AEA9FB05498B7
+gpg: requesting key B05498B7 from hkp server keyserver.ubuntu.com
+gpg: key B05498B7: "Valve Corporation <linux@steampowered.com>" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.ENN5YLQHfQ --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 32B18A1260D8DA0B
+gpg: requesting key 60D8DA0B from hkp server keyserver.ubuntu.com
+gpg: key 60D8DA0B: "Launchpad PPA for YannUbuntu" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.82dpOHFBPG --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 44270923C32A36BF
+gpg: requesting key C32A36BF from hkp server keyserver.ubuntu.com
+gpg: key C32A36BF: "Launchpad PPA" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.WKMVMs2ODt --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys B998019EC07BBEC4
+gpg: requesting key C07BBEC4 from hkp server keyserver.ubuntu.com
+gpg: key C07BBEC4: "Launchpad PPA for Philip Langdale" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.WBBS0rPQaD --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys 896DFFD3F124D11B
+gpg: requesting key F124D11B from hkp server keyserver.ubuntu.com
+gpg: key F124D11B: "Launchpad Glippy" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Executing: gpg --ignore-time-conflict --no-options --no-default-keyring --homedir /tmp/tmp.cifhSWn3NF --no-auto-check-trustdb --trust-model always --keyring /etc/apt/trusted.gpg --primary-keyring /etc/apt/trusted.gpg --keyserver keyserver.ubuntu.com --recv-keys B9316A7BC7917B12
+gpg: requesting key C7917B12 from hkp server keyserver.ubuntu.com
+gpg: key C7917B12: "Launchpad chrislea" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+Apt-key fetches done. Moving to gpg adds...
+gpg: requesting key 60D8DA0B from hkp server subkeys.pgp.net
+gpg: key 60D8DA0B: "Launchpad PPA for YannUbuntu" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+OK
+gpg: requesting key 886DDD89 from hkp server subkeys.pgp.net
+gpg: keyserver timed out
+gpg: keyserver receive failed: keyserver error
+gpg: requesting key 94558F59 from hkp server subkeys.pgp.net
+gpg: keyserver timed out
+gpg: keyserver receive failed: keyserver error
+
+gpg: Interrupt caught ... exiting
+Trapped! Booh!

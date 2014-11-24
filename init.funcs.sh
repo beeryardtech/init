@@ -16,145 +16,6 @@ installKDEConnect()
     kbuildsycoca4 -noincremental
 }
 
-##
-# @name InitFuncs.installs
-# @description
-# Install all the packages
-##
-installs()
-{
-    #sudo apt-get update
-    sudo apt-get -y --force-yes install \
-    adobe-flashplugin \
-    ant \
-    bison \
-    bison-doc \
-    checkinstall \
-    cinnamon \
-    clang-3.4 \
-    cmake \
-    dconf-cli \
-    dconf-editor \
-    debhelper \
-    dolphin \
-    emacs \
-    encfs \
-    gedit-developer-plugins \
-    gedit-latex-plugin \
-    gedit-plugins \
-    git \
-    git-gui \
-    git-notifier \
-    git-repair \
-    gitpkg \
-    gksu \
-    google-chrome-beta \
-    hspell \
-    jxplorer \
-    k3b \
-    kdeconnect \
-    kdiff3 \
-    keepass2 \
-    kile \
-    kile-doc \
-    finch \
-    flex \
-    libasound2 \
-    libatk1.0-dev \
-    libbonoboui2-dev \
-    libc6 \
-    libcairo2-dev \
-    libcroco-tools \
-    libedit-dev \
-    libedit2 \
-    libfreetype6 \
-    libgcc1 \
-    libgnome2-dev \
-    libgnomeui-dev \
-    libgtk2.0-dev \
-    libk3b6-extracodecs \
-    libperl-critic-perl \
-    libperl-dev \
-    libncurses5 \
-    libncurses5-dev \
-    libqt4-dev \
-    libsm6 \
-    libssl-dev \
-    libx11-dev \
-    libxdamage1 \
-    libxext6 \
-    libxfixes3 \
-    libxpm-dev \
-    libxrandr2 \
-    libxrender1 \
-    libxt-dev \
-    libxtst6 \
-    qt4-qtconfig \
-    qt4-doc \
-    make \
-    maven \
-    mercurial \
-    mutt \
-    nemo-dropbox \
-    nodejs \
-    nodejs-dbg \
-    openjdk-7-jdk \
-    openjdk-7-doc \
-    openjdk-7-dbg \
-    openssh-server \
-    openssl \
-    pandoc \
-    perl-base \
-    perl-debug \
-    perl-doc \
-    perl-modules \
-    pidgin \
-    pidgin-plugin-pack \
-    python-dev \
-    python-requests \
-    python3 \
-    python3-dev \
-    python3-requests \
-    qct \
-    ruby \
-    ruby-compass \
-    solaar \
-    spotify \
-    smartmontools \
-    traceroute \
-    terminator \
-    texlive-full \
-    tmux \
-    tortoisehg \
-    touchpad-indicator \
-    tree \
-    xdotool \
-    xubuntu-restricted-extras \
-    zlib1g \
-
-    echo -e "\n*** Finished installing everything... now upgrading packages*** \n"
-    sudo apt-get -y dist-upgrade
-    sudo apt-get autoremove
-
-    echo -e "\n*** All done getting packages*** \n"
-}
-
-##
-# @name InitFuncs.initsios
-# @description
-# Inits everything to do with SIOS Tech environment.
-##
-initsios()
-{
-    wget -qO - http://repo.sc.steeleye.com/sios_dev_signing_key.asc | sudo apt-key add -
-    # Search if source.list has repo already in it
-
-    # If not append to list
-    echo -e "\n deb http://repo.sc.steeleye.com/ everest main" | sudo tee -a /etc/apt/sources.list
-
-    # Go get the stuff
-    sudo apt-get update && sudo apt-get install cloud-orchestrator cloud-orchestrator--ui
-}
 
 ##
 # @name InitFuncs.linkifyDots
@@ -163,6 +24,8 @@ initsios()
 # @param $@ List of targets to create links to
 # @description
 # Takes a list of files and creates symlinks to them in user's home dir.
+#
+# By default skips directories and only does folders
 #
 # - Example Result:
 # Creating link from `/full/path/_foo.txt` to `/home/user/.foo`
@@ -186,7 +49,12 @@ linkifyDots()
     for dotFile in ${targetList[@]}; do
         base=$( basename $dotFile )
 
-        # Skip dir in exluded
+        # Skip dirs.
+        if [[ -d $dotFile ]] ; then
+            continue
+        fi
+
+        # Skip name in exluded list
         if [[ $excluded == $base ]] ; then
             continue
         fi
@@ -242,105 +110,6 @@ buildike()
     popd
 }
 
-##
-# @name InitFuncs.buildvim
-# @param {string} repos
-# @description
-# Fetch source code and build VIM. Includes setting up Vundle
-##
-buildvim()
-{
-    repos=$1
-
-    # Remove old version of vim
-    sudo apt-get -y remove vim-tiny vim-common
-    sudo dpkg --purge vim vim-tiny vim-common
-
-    pushd "$repos/vim"
-    # Currently not support using both python and python3... Limit to python2.7 for now
-    ./configure --with-features=huge \
-    --enable-cscope \
-    --enable-luainterp \
-    --enable-perlinterp \
-    --enable-pythoninterp \
-    --enable-rubyinterp \
-    --enable-gui=gtk2 \
-    --enable-multibyte \
-    --enable-largefile \
-    --prefix=/usr \
-    --with-lua \
-    --with-luajit \
-    --with-python-config-dir=/usr/lib/python2.7 \
-    --with-x=yes
-    make clean
-    make VIMRUNTIMEDIR=/usr/share/vim/vim74
-
-    # -D --> Make deb pkg, -y --> accept default values
-    sudo checkinstall -D -y \
-    --pkgname vim \
-    --pkgversion 7.4.192 \
-    --provides editor \
-
-    popd
-
-    # Check if vim was properly installed
-    which vim
-    if [[ $? == 0 ]] ; then
-        echo "Vim installed correctly"
-    else
-        echo "\n *** Install Failed! *** \n" && return
-    fi
-
-    # Setup vim as default editor
-    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-    sudo update-alternatives --set editor /usr/bin/vim
-    sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-    sudo update-alternatives --set vi /usr/bin/vim
-}
-
-buildvimdeps()
-{
-    # Get Bundles, install deps
-    vim +BundleInstall +qall
-
-    if [[ -d $HOME/.vim/bundle/tern_for_vim ]] ; then
-        pushd $HOME/.vim/bundle/tern_for_vim
-        if [[ ! -f $HOME/.vim/bundle/tern_for_vim/package.json ]] ; then
-            wget https://raw.githubusercontent.com/marijnh/tern_for_vim/master/package.json
-        fi
-        npm install
-        popd
-    fi
-}
-
-###
-# @name InitFuncs.buildycm
-# @param {string} repos
-##
-buildycm()
-{
-    repos=$1
-    if [[ -d ~/.vim/bundle/YouCompleteMe ]] ; then
-        #pushd $repos/llvm
-        #./configure
-        #make
-        #make check-all
-        #sudo make install
-        #popd
-
-        #cd $repos/clang
-        #./configure
-        #make
-        #sudo make install
-
-        cd $HOME/.vim/bundle/YouCompleteMe
-        echo "*** Compiling YCM ***"
-        ./install.sh --clang-completer --omnisharp-completer
-
-        popd
-    fi
-}
-
 ###
 # @name InitFuncs.getsourcecode
 # @param {string} repos
@@ -366,7 +135,7 @@ getsourcecode(){
     popd
 
     git clone https://github.com/gmarik/vundle.git $vundle
-    git clone http://llvm.org/git/llvm.git $repos/llvm
+    #git clone http://llvm.org/git/llvm.git $repos/llvm
     git clone http://llvm.org/git/clang.git $repos/clang
 }
 
@@ -392,17 +161,39 @@ buildluajit()
 }
 
 ##
-# @name InitFuncs.getTeamViewer
-# @param {string} repos
+# @name InitFuncs.getteamviewer
 # @description
-# Fetch and install Teamviewer
+# Fetch and install TeamViewer
 ##
-getTeamViewer()
+getteamviewer()
 {
     # Needs the 32bit version
     url_tv="http://download.teamviewer.com/download/teamviewer_linux.deb"
-    name=$( basename $url_tv )
-    wget -O /tmp/$name $url_tv
+    getdeb $url_tv
+}
+
+##
+# @name InitFuncs.getmusictube
+# @description
+# Fetch and install music tube
+##
+getmusictube()
+{
+    url_mt="http://flavio.tordini.org/files/musictube/musictube64.deb"
+    getdeb $url_mt
+}
+
+##
+# @name InitFuncs.getdeb
+# @description
+# Fetch and install external deb packages. Tries to handle dependencies with
+# `apt-get install -f`
+##
+getdeb()
+{
+    url=$1
+    name=$( basename $url )
+    wget -O /tmp/$name $url
     sudo dpkg -i /tmp/$name
 
     # Fix missing deps
@@ -429,15 +220,25 @@ setups()
     tmpdir=$4
     vundle=$5
 
+    #init=$HOME/Dropbox/repos/beeryardtech/init/
+    init=/media/sf_Dropbox/repos/beeryardtech/init
+
+    # What to append to logind.conf
+    logind="HandleSuspendKey=suspend\nHandleLidSwitch=ignore\nLidSwitchIgnoreInhibited=no\n"
+
     # Create all the dirs
     mkdir -p $vundle $repos $moveddir $tmpdir ~/tmp/{moved,iso}
 
     # Backup some files
     cp /etc/apt/sources.list $moveddir
     cp /etc/systemd/logind.conf $moveddir
+    cp /usr/share/X11/xorg.conf.d/20-intel.conf $moveddir
 
     # Put in place the new files
-    sudo cp $HOME/Dropbox/repos/beeryardtech/init/sources.list.trusty /etc/apt/sources.list
+    sudo cp $init/sources.list.trusty /etc/apt/sources.list
+    sudo cp $init/20-intel.conf /usr/share/X11/xorg.conf.d/20-intel.conf
+    sudo cp $init/logind.conf /etc/systemd/logind.conf
+    #echo -e "\n\n # Added by init.sh\n${logind}" | sudo tee -a $init/logind.conf /etc/systemd/logind.conf
 
     # Link in bin dir
     echo "Bin dir: $bin"

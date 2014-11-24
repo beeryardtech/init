@@ -134,8 +134,8 @@ deb-src http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu trusty main
 
 #### Tor: anonymity online (Source) - http://www.torproject.org/
 ## Run this command: gpg --keyserver subkeys.pgp.net --recv 886DDD89 && gpg --export --armor 886DDD89  | sudo apt-key add -
-deb http://deb.torproject.org/torproject.org trusty main
-deb-src http://deb.torproject.org/torproject.org trusty main
+#deb http://deb.torproject.org/torproject.org trusty main
+#deb-src http://deb.torproject.org/torproject.org trusty main
 
 
 #############################################################

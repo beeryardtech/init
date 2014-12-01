@@ -42,6 +42,10 @@ deb http://ppa.launchpad.net/shnatsel/cairo-compmgr/ubuntu saucy main
 #deb http://ppa.launchpad.net/gwendal-lebihan-dev/cinnamon-stable/ubuntu trusty main
 #deb http://ppa.launchpad.net/gwendal-lebihan-dev/cinnamon-nightly/ubuntu trusty main
 
+#### Play on Linux
+## Game player - wraps WINE
+deb http://deb.playonlinux.com/ trusty main
+
 #### Linux Mint upstream.
 ## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3EE67F3D0FF405B2
 # Can get Cinnamon from here

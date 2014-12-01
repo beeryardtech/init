@@ -27,10 +27,11 @@ cleanup()
 trap cleanup SIGINT SIGTERM
 
 # Put vim on hold, only if it is found
+echo vim hold | sudo dpkg --set-selections
 if [[ $( dpkg --list | grep -q "vim" ) ]] ; then
-    echo vim hold | sudo dpkg --set-selections
+    echo "**** VIM package found. Held back"
 else
-    echo "**** VIM package not found. Not putting it on hold"
+    echo "**** VIM package not found. Held"
 fi
 
 # Auto get missing keys
@@ -77,7 +78,6 @@ keepass2 \
 kile \
 kile-doc \
 finch \
-flex \
 launchpad-getkeys \
 libasound2 \
 libatk1.0-dev \
@@ -136,6 +136,7 @@ perl-doc \
 perl-modules \
 pidgin \
 pidgin-plugin-pack \
+playonlinux \
 python-dev \
 python-pip \
 python-requests \

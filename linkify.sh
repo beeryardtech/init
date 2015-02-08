@@ -48,6 +48,9 @@ targetList=$@
 
 targetList=(
     '_bash_aliases.txt'
+    '_bash_funcs.txt'
+    '_bash_logout.txt'
+    '_bash_ps1.txt'
     '_bashrc.txt'
     '_gitconfig.txt'
     '_gntrc.txt'
@@ -62,12 +65,12 @@ targetList=(
     '_tmux.conf.txt'
     '_vimperatorrc.txt'
     '_vimrc.txt'
+    '_vimrc.config.txt'
     '_vimrc.funcs.txt'
     '_vimrc.js.txt'
     '_vimrc.plugins.txt'
     '_vrapperrc.txt'
     '_ssh'
-    '_sshkeys'
     '_config/KeePass'
     '_config/gedit'
     '_config/terminator'

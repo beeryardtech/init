@@ -4,8 +4,10 @@
 #       CREATED: 11/14/2014 20:22
 #===============================================================================
 ###
-# @name InitFuncs.buildycm
+# @name Init.buildycm
 # @param {string} repos
+# @description
+# Build the VIM plugin YouCompleteMe (ycm).
 ##
 cleanup()
 {
@@ -16,8 +18,22 @@ trap cleanup SIGINT SIGTERM
 
 if [[ -d ~/.vim/bundle/YouCompleteMe ]] ; then
     pushd $HOME/.vim/bundle/YouCompleteMe
+
+    #echo "*** YCM - Gitting submodule ***"
+    #git submodule update --init --recursive
+
     echo "*** Compiling YCM ***"
-    ./install.sh --clang-completer --omnisharp-completer
+    ./install.sh --clang-completer
+
+    echo "YCM done:" $?
+
+     #Try again without clang
+    if [[ $? == 1 ]] ; then
+        echo "Trying again without clang support"
+        ./install.sh
+        echo "YCM done:" $?
+    fi
+
 
     popd
 else

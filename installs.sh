@@ -3,21 +3,20 @@
 # @name installs.sh
 # @description
 # Install all the packages. Does the following setup:
+#
 # - Put the VIM package on hold
 # - Run apt-get update
 # - Install the packages
 # - Remove unity-webapps-service
 # - Autoremove all unneeded packages
 # - Run dist-update
-#
-# NOTE: Don't forget to run generated.sources.sh first!
 ##
 
 # Only should be ran as root
-if [[ $EUID != 0 ]] ; then
-    echo "Run this script as root" 1>&2
-    exit 1
-fi
+#if [[ $EUID != 0 ]] ; then
+    #echo "Run this script as root" 1>&2
+    #exit 1
+#fi
 
 cleanup()
 {
@@ -25,6 +24,9 @@ cleanup()
     exit 255
 }
 trap cleanup SIGINT SIGTERM
+
+# Grab sudo creds
+sudo echo
 
 # Put vim on hold, only if it is found
 echo vim hold | sudo dpkg --set-selections
@@ -38,6 +40,7 @@ fi
 sudo apt-get -y --force-yes install launchpad-getkeys
 sudo launchpad-getkeys
 
+# Update again after getting keys
 sudo apt-get update
 
 # Install Packages
@@ -117,6 +120,7 @@ maven \
 mercurial \
 mplayer \
 mutt \
+pinta \
 nemo-dropbox \
 nfs-common \
 nfs-kernel-server \
@@ -135,6 +139,7 @@ perl-debug \
 perl-doc \
 perl-modules \
 pidgin \
+pidgin-indicator \
 pidgin-plugin-pack \
 playonlinux \
 python-dev \

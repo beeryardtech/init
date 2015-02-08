@@ -12,8 +12,8 @@ Scripts and packages to help get my systems going.
 - Add The following to `/etc/sysctrl.conf`
 
 ``` bash
-### 
-# Disable IPv6 
+###
+# Disable IPv6
 ###
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
@@ -22,66 +22,21 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 ### Wget apps
 
 ``` bash
-wget -O https://www.shrew.net/download/ike/ike-2.2.1-release.tgz ~/tmp | tar xvf - 
+wget -O https://www.shrew.net/download/ike/ike-2.2.1-release.tgz ~/tmp | tar xvf -
 ```
 
 ### Update and Prepare Apt-Get
-- Copy `/etc/apt/source.list` to `/etc/apt/source.list.install` 
+- Copy `/etc/apt/source.list` to `/etc/apt/source.list.install`
 - Replace with init version
 - Run `aptget.init.sh`
-- Then it will try to fetch all the gpg keys. 
+- Then it will try to fetch all the gpg keys.
 - *TODO* Cleanup source.list.d after run.
 - *TODO* List of keys that fail during a run
 
 ### Package list
 - TODO Move this list to to deb metapackage when that is done...
+- See ./installs.sh for list of packages
 
-``` bash
-sudo apt-get install \
-bison \
-bison-doc \
-cinnamon \
-clang-3.4 \
-cmake \
-debhelper \
-dolphin \
-nautilus-dropbox \
-emacs \
-git \
-git-gui \
-glippy \
-google-chrome-beta \
-hspell \
-kdiff3 \
-keepass2 \
-kile \
-kile-doc \
-libcurses5 \
-libcurses5-dev \
-make \
-maven \
-mercurial \
-mutt \
-nodejs \
-nodejs-dbg \
-pidgin \
-python3 \
-python-dev \
-qct \
-ruby \
-ruby-compass \
-solaar \
-smartmontools \
-traceroute \
-terminator \
-texlive-full \
-tmux \
-tortoisehg \
-touchpad-indicator \
-tree
-#lldb-3.4 \
-#wine \
-```
 
 ### Perl Modules
 

@@ -20,7 +20,7 @@
 # fi
 cleanup()
 {
-    echo "#### Trapped in installs.sh. Exiting."
+    echo "#### Trapped in linkify.sh. Exiting."
     exit 255
 }
 trap cleanup SIGINT SIGTERM

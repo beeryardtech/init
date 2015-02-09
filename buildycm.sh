@@ -1,8 +1,4 @@
 #!/bin/bash -
-#===============================================================================
-#         USAGE: ./buildycm.sh $repos
-#       CREATED: 11/14/2014 20:22
-#===============================================================================
 ###
 # @name Init.buildycm
 # @param {string} repos
@@ -11,7 +7,7 @@
 ##
 cleanup()
 {
-    echo "#### Trapped in buildvimdeps.sh. Exiting."
+    echo "#### Trapped in buildycm.sh. Exiting."
     exit 255
 }
 trap cleanup SIGINT SIGTERM

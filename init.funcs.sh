@@ -161,29 +161,6 @@ buildluajit()
 }
 
 ##
-# @name InitFuncs.getteamviewer
-# @description
-# Fetch and install TeamViewer
-##
-getteamviewer()
-{
-    # Needs the 32bit version
-    url_tv="http://download.teamviewer.com/download/teamviewer_linux.deb"
-    getdeb $url_tv
-}
-
-##
-# @name InitFuncs.getmusictube
-# @description
-# Fetch and install music tube
-##
-getmusictube()
-{
-    url_mt="http://flavio.tordini.org/files/musictube/musictube64.deb"
-    getdeb $url_mt
-}
-
-##
 # @name InitFuncs.getdeb
 # @description
 # Fetch and install external deb packages. Tries to handle dependencies with
@@ -198,49 +175,4 @@ getdeb()
 
     # Fix missing deps
     sudo apt-get install -f
-}
-
-##
-# @name InitFuncs.setups
-# @param {string} repos
-# @param {string} moveddir
-# @param {string} tmpdir
-# @description
-# Setup dirs, and create generic links
-##
-setups()
-{
-    # Set defaults
-    #repos=${repos:-"~/tmp/test/repos"}
-    #moveddir=${moveddir:-"~/tmp/test/moved"}
-    #tmpdir=${tmpdir:-"~/tmp/test"}
-    bin=$1
-    repos=$2
-    moveddir=$3
-    tmpdir=$4
-    vundle=$5
-
-    #init=$HOME/Dropbox/repos/beeryardtech/init/
-    init=/media/sf_Dropbox/repos/beeryardtech/init
-
-    # What to append to logind.conf
-    logind="HandleSuspendKey=suspend\nHandleLidSwitch=ignore\nLidSwitchIgnoreInhibited=no\n"
-
-    # Create all the dirs
-    mkdir -p $vundle $repos $moveddir $tmpdir ~/tmp/{moved,iso}
-
-    # Backup some files
-    cp /etc/apt/sources.list $moveddir
-    cp /etc/systemd/logind.conf $moveddir
-    cp /usr/share/X11/xorg.conf.d/20-intel.conf $moveddir
-
-    # Put in place the new files
-    sudo cp $init/sources.list.trusty /etc/apt/sources.list
-    sudo cp $init/20-intel.conf /usr/share/X11/xorg.conf.d/20-intel.conf
-    sudo cp $init/logind.conf /etc/systemd/logind.conf
-    #echo -e "\n\n # Added by init.sh\n${logind}" | sudo tee -a $init/logind.conf /etc/systemd/logind.conf
-
-    # Link in bin dir
-    echo "Bin dir: $bin"
-    ln -s $bin ~/bin
 }

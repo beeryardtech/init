@@ -1,14 +1,17 @@
 #!/bin/bash -
-#===============================================================================
-#         USAGE: ./buildvim.sh $repos
-#       CREATED: 11/16/2014 20:22
-#===============================================================================
 ##
 # @name InitFuncs.buildvim
 # @param {string} repos
 # @description
 # Builds VIM from source code. Includes setting up Vundle
 ##
+cleanup()
+{
+    echo "#### Trapped in buildvim.sh. Exiting."
+    exit 255
+}
+trap cleanup SIGINT SIGTERM
+
 repos=~/repos/
 
 # Remove old version of vim

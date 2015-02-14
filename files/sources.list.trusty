@@ -32,6 +32,10 @@ deb http://ppa.launchpad.net/banshee-team/ppa/ubuntu saucy main
 ## Run this command: gpg --keyserver subkeys.pgp.net --recv 60D8DA0B && gpg --export --armor 60D8DA0B  | sudo apt-key add -
 deb http://ppa.launchpad.net/yannubuntu/boot-repair/ubuntu saucy main
 
+#### Play on Linux
+## Game player - wraps WINE
+deb http://deb.playonlinux.com/ trusty main
+
 #### Cairo Composite Manager PPA - http://cairo-compmgr.tuxfamily.org/
 ## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 75198A89
 deb http://ppa.launchpad.net/shnatsel/cairo-compmgr/ubuntu saucy main
@@ -42,10 +46,6 @@ deb http://ppa.launchpad.net/shnatsel/cairo-compmgr/ubuntu saucy main
 #deb http://ppa.launchpad.net/gwendal-lebihan-dev/cinnamon-stable/ubuntu trusty main
 #deb http://ppa.launchpad.net/gwendal-lebihan-dev/cinnamon-nightly/ubuntu trusty main
 
-#### Play on Linux
-## Game player - wraps WINE
-deb http://deb.playonlinux.com/ trusty main
-
 #### Linux Mint upstream.
 ## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3EE67F3D0FF405B2
 # Can get Cinnamon from here
@@ -54,7 +54,7 @@ deb http://deb.playonlinux.com/ trusty main
 ### Another Cinnamon PPA
 ## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FA2AF90A
 deb http://ppa.launchpad.net/lestcape/cinnamon/ubuntu trusty main
-# deb-src http://ppa.launchpad.net/lestcape/cinnamon/ubuntu trusty main
+deb-src http://ppa.launchpad.net/lestcape/cinnamon/ubuntu trusty main
 
 #### Gimp PPA - https://launchpad.net/~otto-kesselgulasch/+archive/gimp
 ## Run this command: sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 614C4B38
@@ -155,8 +155,8 @@ deb http://ppa.launchpad.net/pithos/ppa/ubuntu saucy main
 deb-src http://ppa.launchpad.net/pithos/ppa/ubuntu saucy main
 
 ### Valve Steam - - Steam Games
-deb http://repo.steampowered.com/steam/ precise steam
-deb-src http://repo.steampowered.com/steam/ precise steam
+# deb http://repo.steampowered.com/steam/ precise steam
+# deb-src http://repo.steampowered.com/steam/ precise steam
 
 ### NodeJs Launch - Newest builds not in normal packages
 deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main
@@ -170,3 +170,9 @@ deb http://ppa.launchpad.net/atareao/atareao/ubuntu trusty main
 # github: https://github.com/pwr/Solaar.git
 deb http://ppa.launchpad.net/daniel.pavel/solaar/ubuntu trusty main
 deb-src http://ppa.launchpad.net/daniel.pavel/solaar/ubuntu trusty main
+
+### PPA for KDE-Connect
+# https://code.launchpad.net/~vikoadi/+archive/ubuntu/ppa/
+# https://community.kde.org/KDEConnect
+deb http://ppa.launchpad.net/vikoadi/ppa/ubuntu trusty main
+# deb-src http://ppa.launchpad.net/vikoadi/ppa/ubuntu trusty main

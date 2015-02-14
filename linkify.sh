@@ -25,6 +25,9 @@ cleanup()
 }
 trap cleanup SIGINT SIGTERM
 
+dest=/home/tgoldie/
+movedir=/home/tgoldie/tmp/moved
+root=/home/tgoldie/Dropbox/repos/beeryardtech/scripts/dots
 
 # Setup arguments
 optstring=:d:De:m:r:
@@ -71,9 +74,19 @@ targetList=(
     '_vimrc.plugins.txt'
     '_vrapperrc.txt'
     '_ssh'
-    '_config/KeePass'
-    '_config/gedit'
-    '_config/terminator'
+    '_config/KeePass/KeePass.config.xml'
+    '_config/gedit/accels.txt'
+    '_config/gedit/tools'
+    '_config/terminator/config.txt'
+    '_kde/share/apps/kdiff3/kdiff3_shell.rc.txt'
+    '_kde/share/config/dolphinrc.txt'
+    '_kde/share/config/katepartpluginsrc.txt'
+    '_kde/share/config/katerc.txt'
+    '_kde/share/config/kdeconnectrc.txt'
+    '_kde/share/config/kdiff3rc.txt'
+    '_kde/share/config/kilerc.txt'
+    '_kde/share/config/konsolerc.txt'
+    '_kde/share/config/okularrc.txt'
     '_purple'
     '_vim'
     '_vimperator'
@@ -88,6 +101,7 @@ for dotFile in ${targetList[@]}; do
     fi
 
     # The name of the file that will put in home dir
+    # Strip the ".txt" from the end of the file name
     dotFileStripd=$( echo "$dotFile" | sed 's/.txt$//')
 
     # Only prefix the dot if led by an underscore
@@ -95,11 +109,20 @@ for dotFile in ${targetList[@]}; do
         dotFileStripd=$(echo $dotFileStripd | sed 's/_/./1' )
     fi
 
-    # Now make it a full path. This is the destination path
+    # Now make it a full path to file. This is the destination path
     finalDest="${dest}/$dotFileStripd"
 
+    # Test if containing directory exists. If not make it
+    finalDestDir="$(dirname $finalDest)"
+
+    if [[ ! -d $finalDestDir ]] ; then
+        echo "Final Dest Dir did not exist: $finalDestDir"
+        mkdir -p $finalDestDir
+        echo "Final Dest Dir created!"
+    fi
+
     # If symlink of the same name already exists then rm it first
-    if [ -h ${finalDest} ] ; then
+    if [[ -h ${finalDest} ]] ; then
         echo "*** Deleting $finalDest - "
         rm $finalDest
     fi
@@ -107,7 +130,7 @@ for dotFile in ${targetList[@]}; do
     # If file or dir exists move
     if [[ -f ${finalDest} || -a ${dotFileStripd} ]] ; then
         echo "*** Moving $finalDest to $movedir - "
-        mv $finalDest $moveddir
+        mv $finalDest $movedir
     fi
 
     echo -e "Creating link from $dotFile to $finalDest \n"

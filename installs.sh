@@ -61,6 +61,7 @@ debhelper \
 dolphin \
 emacs \
 encfs \
+finch \
 gedit-developer-plugins \
 gedit-latex-plugin \
 gedit-plugins \
@@ -72,15 +73,14 @@ gitpkg \
 gksu \
 google-chrome-beta \
 hspell \
+indicator-kdeconnect \
 jxplorer \
 k3b \
 kdeconnect \
-kdeconnect-kde \
 kdiff3 \
 keepass2 \
 kile \
 kile-doc \
-finch \
 launchpad-getkeys \
 libasound2 \
 libatk1.0-dev \

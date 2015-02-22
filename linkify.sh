@@ -47,14 +47,15 @@ while getopts $optstring opt ; do
             root=$OPTARG ;;
     esac
 done
-targetList=$@
 
+# List of to create links from
 targetList=(
     '_bash_aliases.txt'
     '_bash_funcs.txt'
     '_bash_logout.txt'
     '_bash_ps1.txt'
     '_bashrc.txt'
+    '_editorconfig.txt'
     '_gitconfig.txt'
     '_gntrc.txt'
     '_gvimrc.txt'
@@ -82,7 +83,7 @@ targetList=(
     '_kde/share/config/dolphinrc.txt'
     '_kde/share/config/katepartpluginsrc.txt'
     '_kde/share/config/katerc.txt'
-    '_kde/share/config/kdeconnectrc.txt'
+    # '_kde/share/config/kdeconnectrc.txt' # Do not link - causes sigfault
     '_kde/share/config/kdiff3rc.txt'
     '_kde/share/config/kilerc.txt'
     '_kde/share/config/konsolerc.txt'

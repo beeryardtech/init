@@ -1,0 +1,15 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+proc            /proc           proc    nodev,noexec,nosuid 0       0
+# / was on /dev/sda1 during installation
+UUID=1a2d1f4d-b6b2-4f8a-b18e-08a1774ad2be /               ext4    errors=remount-ro 0       1
+# swap was on /dev/sda5 during installation
+UUID=c1b812aa-efc3-4f7a-b438-eba26a6b6c46 none            swap    sw              0       0
+
+# Webdav drive for integritypropsc.com
+https://gator4165.hostgator.com:2078     /media/integritypropsc-drive/   davfs   rw,user,noauto  0   0

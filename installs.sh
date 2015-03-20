@@ -55,16 +55,19 @@ cifs-utils \
 cinnamon \
 clang-3.4 \
 cmake \
+davfs2 \
 dconf-cli \
 dconf-editor \
 debhelper \
 dolphin \
+dosbox \
 emacs \
 encfs \
 finch \
 gedit-developer-plugins \
 gedit-latex-plugin \
 gedit-plugins \
+gimp \
 git \
 git-gui \
 git-notifier \
@@ -72,6 +75,7 @@ git-repair \
 gitpkg \
 gksu \
 google-chrome-beta \
+htop \
 hspell \
 indicator-kdeconnect \
 jxplorer \

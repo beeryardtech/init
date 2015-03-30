@@ -49,7 +49,7 @@ while getopts $optstring opt ; do
 done
 
 # List of to create links from
-targetList=(
+dotsList=(
     "_bash_aliases.txt"
     "_bash_funcs.txt"
     "_bash_logout.txt"
@@ -81,6 +81,7 @@ targetList=(
     "_config/gedit/accels.txt"
     "_config/gedit/tools"
     "_config/htop/htoprc"
+    "_config/SvxLink/Qtel.conf"
     "_config/terminator/config.txt"
     "_kde/share/apps/kdiff3/kdiff3_shell.rc.txt"
     "_kde/share/config/dolphinrc.txt"
@@ -99,8 +100,7 @@ targetList=(
 # Excludes
 # '_kde/share/config/kdeconnectrc.txt' # Do not link - causes sigfault
 ###
-
-for dotFile in ${targetList[@]}; do
+for dotFile in ${dotsList[@]}; do
     base=$( basename $dotFile )
 
     # Skip name in exluded list

@@ -145,3 +145,9 @@ for dotFile in ${dotsList[@]}; do
     echo "Root: $root dest: $dest"
     ln -s "$root/$dotFile" "${finalDest}"
 done
+
+###
+# Links in other places
+###
+drive_cSrc="$HOME/.wine/drive_c/"
+drive_cTrgt="$HOME/shared/backup/drive_c/"

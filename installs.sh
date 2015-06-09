@@ -47,7 +47,10 @@ sudo apt-get update
 sudo apt-get -y --force-yes install \
 adobe-flashplugin \
 aircrack-ng \
+apt-files \
 autossh \
+baloo \
+banshee \
 bison \
 bison-doc \
 checkinstall \
@@ -75,6 +78,7 @@ git-repair \
 gitpkg \
 gksu \
 google-chrome-beta \
+gufw \
 htop \
 hspell \
 indicator-kdeconnect \

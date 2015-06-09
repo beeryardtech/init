@@ -20,11 +20,12 @@ if [[ -d ~/.vim/bundle/YouCompleteMe ]] ; then
 
     echo "*** Compiling YCM ***"
     ./install.sh --clang-completer
+    error=$?
 
-    echo "YCM done:" $?
+    echo "YCM done:" $error
 
      #Try again without clang
-    if [[ $? == 1 ]] ; then
+    if [[ $error == 1 ]] ; then
         echo "Trying again without clang support"
         ./install.sh
         echo "YCM done:" $?

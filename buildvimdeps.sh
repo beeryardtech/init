@@ -9,7 +9,7 @@ trap cleanup SIGINT SIGTERM
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Get Bundles, install deps
-git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle.git
+git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
 # Build YCM - script should be in same directory

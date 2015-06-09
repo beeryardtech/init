@@ -47,15 +47,18 @@ cp /etc/apt/sources.list $moveddir
 cp /etc/systemd/logind.conf $moveddir
 cp /usr/share/X11/xorg.conf.d/20-intel.conf $moveddir
 
-
 sudo cp $init/sources.list.trusty /etc/apt/sources.list
 sudo cp $init/20-intel.conf /usr/share/X11/xorg.conf.d/20-intel.conf
 sudo cp $init/logind.conf /etc/systemd/logind.conf
 
 echo "END moving files"
 
-# Put in place the new files
-#echo -e "\n\n # Added by init.sh\n${logind}" | sudo tee -a $init/logind.conf /etc/systemd/logind.conf
+echo "START Setup firewall rules"
+
+sudo ufw enable
+sudo ufw allow proto tcp from any to any port 1714:1764
+
+echo "END Setup firewall rules"
 
 # Link in bin dir
 echo "Bin dir: $bin"

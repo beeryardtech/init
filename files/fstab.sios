@@ -1,0 +1,15 @@
+# vim: ft=fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+
+#SIOS mount points
+hancock.sc.steeleye.com:/filepile       /export/filepile     nfs     rsize=8192,wsize=8192,timeo=14,intr
+hancock.sc.steeleye.com:/nobackups      /export/nobackups    nfs     rsize=8192,wsize=8192,timeo=14,intr
+fenric.sc.steeleye.com:/export/PKGS     /export/PKGS         nfs     defaults 0 0
+fenric.sc.steeleye.com:/export/public   /export/public       nfs     defaults 0 0
+fenric.sc.steeleye.com:/export/public/sios-iq-temporary-licenses /export/sioslic    nfs defaults    0   0

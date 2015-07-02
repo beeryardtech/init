@@ -3,8 +3,6 @@
 # @name setupwine.sh
 # @param {string} -e _excluded_ Files/dirs to be excluded from linking
 # @description
-# Creates the symlinks for backups for the WINE home directory. Requires that the
-# Destination dirs are available and writable.
 ##
 cleanup()
 {
@@ -12,6 +10,25 @@ cleanup()
     exit 255
 }
 trap cleanup SIGINT SIGTERM
+
+read -r -d '' USAGE << "EOF"
+Creates the symlinks for backups for the WINE home directory. Requires that the
+Destination dirs are available and writable.
+
+optional arguments:
+-h    Print this help and exit
+-n    Test run
+
+EOF
+
+dryrun=
+optstring=hn
+while getopts $optstring opt ; do
+    case $opt in
+    h) echo $USAGE ; exit 255 ;;
+    n) dryrun=true ;;
+    esac
+done
 
 moveddir=~/tmp/moved
 srcDir=~/.wine/

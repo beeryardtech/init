@@ -20,10 +20,26 @@
 
 cleanup()
 {
-    echo "#### Trapped in installs.sh. Exiting."
+    echo "#### Trapped in $( basename '$0' ). Exiting."
     exit 255
 }
 trap cleanup SIGINT SIGTERM
+
+read -r -d '' USAGE << "EOF"
+Handles the install of all needed packages from apt-get.
+
+- Holds VIM package from dpkg
+- Gets and runs "launchpad-getkeys"
+- Runs apt-get install
+- Removes unwanted packages
+- Does system update
+
+EOF
+
+if [[ "$1" == "-h" ]] ; then
+    echo $USAGE
+    exit 1;
+fi
 
 # Grab sudo creds
 sudo echo
@@ -40,8 +56,20 @@ fi
 sudo apt-get -y --force-yes install launchpad-getkeys
 sudo launchpad-getkeys
 
+err=$?
+if [[ $err != 0 ]] ; then
+    echo "[ERROR] launchpad-getkeys failed! Code: $err"
+    exit $err
+fi
+
 # Update again after getting keys
 sudo apt-get update
+
+err=$?
+if [[ $err != 0 ]] ; then
+    echo "[ERROR] apt-get update failed! Code: $err"
+    exit $err
+fi
 
 # Install Packages
 sudo apt-get -y --force-yes install \
@@ -162,7 +190,7 @@ ruby \
 ruby-compass \
 ruby-sqlite3 \
 sqliteman \
-sqliteman-doc \
+sqliteman-doc \get
 solaar \
 spotify-client \
 smartmontools \
@@ -181,12 +209,29 @@ virtualbox \
 vlc \
 zlib1g \
 
+err=$?
+if [[ $err != 0 ]] ; then
+    echo "[ERROR] apt-get INSTALL failed! Code: $err"
+    exit $err
+fi
+
 echo -e "\n*** Finished installing everything... Now removing Unity stuff...*** \n"
 
 sudo apt-get -y remove unity-webapps-service
 
 echo -e "\n*** Finished removing stuff... Now upgrading packages...*** \n"
 sudo apt-get -y --force-yes dist-upgrade
+err=$?
+if [[ $err != 0 ]] ; then
+    echo "[ERROR] dist-update failed! Code: $err"
+    exit $err
+fi
+
 sudo apt-get -y --force-yes autoremove
+err=$?
+if [[ $err != 0 ]] ; then
+    echo "[ERROR] autoremove failed! Code: $err"
+    exit $err
+fi
 
 echo -e "\n*** All done init packages*** \n"

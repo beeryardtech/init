@@ -7,16 +7,33 @@
 ##
 cleanup()
 {
-    echo "#### Trapped in buildycm.sh. Exiting."
+    echo "#### Trapped in $( basename '$0' ). Exiting."
     exit 255
 }
 trap cleanup SIGINT SIGTERM
 
+read -r -d '' USAGE << "EOF"
+Runs the "build" init scripts and checks results.
+NOTE that if any script fails exits with that error code
+and does not continue.
+
+optional arguments:
+-h    Print this help and exit
+-n    Test run
+
+EOF
+
+dryrun=
+optstring=hn
+while getopts $optstring opt ; do
+    case $opt in
+    h) echo $USAGE ; exit 255 ;;
+    n) dryrun=true ;;
+    esac
+done
+
 if [[ -d ~/.vim/bundle/YouCompleteMe ]] ; then
     pushd $HOME/.vim/bundle/YouCompleteMe
-
-    #echo "*** YCM - Gitting submodule ***"
-    #git submodule update --init --recursive
 
     echo "*** Compiling YCM ***"
     ./install.sh --clang-completer
@@ -31,8 +48,8 @@ if [[ -d ~/.vim/bundle/YouCompleteMe ]] ; then
         echo "YCM done:" $?
     fi
 
-
     popd
+
 else
     echo "YCM Directory does not exist!"
     echo

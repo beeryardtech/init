@@ -43,4 +43,4 @@ EOF
 # Concat to the end of the fstab file
 echo $fstabStr | sudo tee -a /etc/fstab
 
-sudo mount -a
+udo mount -a

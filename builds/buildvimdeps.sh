@@ -1,9 +1,7 @@
 #!/bin/bash -
-cleanup()
-{
-    echo "#### Trapped in $( basename '$0' ). Exiting."
-    exit 255
-}
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -20,52 +18,108 @@ dryrun=
 optstring=hn
 while getopts $optstring opt ; do
     case $opt in
-    h) echo $USAGE ; exit 255 ;;
+    h) echo "$USAGE" ; exit 255 ;;
     n) dryrun=true ;;
     esac
 done
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+##
+# Values
+##
+BUNDLE="~/.vim/bundle"
 
-# Get Bundles, install deps
-git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/Vundle.vim
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] Failed to clone vundle! Code: $err"
-    exit $err
-fi
+# Tern
+REPO_TERN="${BUNDLE}/tern_for_vim"
+TERN_PACKAGE_FILE="${REPO_TERN}/package.json"
+TERN_PACKAGE_URL="https://raw.githubusercontent.com/marijnh/tern_for_vim/master/package.json"
+NPM_REGISTRY="http://registry.npmjs.org/"
 
-vim +PluginInstall +qall
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] Failed to install plugins! Code: $err"
-    exit $err
-fi
+# Vundle
+REPO_VUNDLE="${BUNDLE}/vundle.git"
+URL_VUNDLE="https://github.com/gmarik/vundle.git"
 
-if [[ -d $HOME/.vim/bundle/tern_for_vim ]] ; then
-    pushd $HOME/.vim/bundle/tern_for_vim
-    echo "*** Compiling TERN ***"
-    if [[ ! -f $HOME/.vim/bundle/tern_for_vim/package.json ]] ; then
-        wget https://raw.githubusercontent.com/marijnh/tern_for_vim/master/package.json
-        err=$?
-        if [[ $err != 0 ]] ; then
-            echo "[ERROR] Failed to get tern package.json! Code: $err"
-            exit $err
-        fi
+get_vundle()
+{
+    local url="$1"
+    local repo="$2"
+
+    if [[ $dry ]] ; then
+        [[ -d "$repo" ]] && exists=true || exists=false
+        echo "Clone url: $url"
+        echo "Clone repo: $repo"
+        echo "Repo exists: $exists"
+        return
     fi
 
-    npm install
+    # Delete the existing directory first
+    if [[ -d "$repo" ]] ; then
+        rm -rf "$repo"
+    fi
+
+    git clone "$url" "$repo"
     err=$?
-    if [[ $err != 0 ]] ; then
-        echo "[ERROR] npm install failed! Code: $err"
-        exit $err
+    die $err "Failed to clone Vundle!"
+}
+
+get_plugins()
+{
+    local dry=$1
+    local args="+PluginInstall +qall"
+
+    if [[ $dry ]] ; then
+        echo "Args: $args"
+        return
     fi
 
+    vim "$args"
+    err=$?
+    die $err "Failed to install plugins!"
+}
+
+get_tern_package_json()
+{
+    local path=$1
+    local url=$2
+    local dry=$3
+
+    if [[ $dry ]] ; then
+        [[ -f "$path" ]] && exists=true || exists=false
+        echo "Tern package.json path: $path"
+        echo "Tern package.json url: $url"
+        echo "Tern package.json exists: $exists"
+        return
+    fi
+
+    if [[ ! -f "$path" ]] ; then
+        wget -O "$path" "$url"
+        err=$?
+        die $err "Failed to fetch tern package.json! Path: $path Url: $url"
+    fi
+}
+
+install_tern()
+{
+    local dir=$1
+    local reg=$2
+    local dry=$3
+
+    if [[ $dry ]] ; then
+        echo "Directory: $dir"
+        echo "Registry: $reg"
+        return
+    fi
+
+    pushd $dir
+    npm --registry "$reg" install
     popd
+}
 
-else
-    # Else, through error!
-    echo "[ERROR] Tern_For_Vim Directory does not exist!"
-    exit 1
-fi
+main()
+{
 
+    get_vundle "$URL_VUNDLE" "$REPO_TERN" $dryrun
+    get_plugins $dryrun
+    get_tern_package_json "$TERN_PACKAGE_FILE" "$TERN_PACKAGE_URL" $dryrun
+    install_tern "$REPO_TERN" "$NPM_REGISTRY" $dryrun
+}
+main

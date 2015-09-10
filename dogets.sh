@@ -1,10 +1,7 @@
 #!/bin/bash -
 
-cleanup()
-{
-    echo "#### Trapped in $( basename '$0' ). Exiting."
-    exit 255
-}
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -29,36 +26,16 @@ done
 
 ./gets/getperl.sh $@
 err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] getperl.sh! Code: $err"
-    exit $err
-fi
+die $err "getperl.sh failed!"
 
 ./gets/getpythonlibs.sh $@
 err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] getpythonlibs.sh failed! Code: $err"
-    exit $err
-fi
+die "getpythonlibs.sh failed!"
 
 ./gets/getsourcecode.sh $@
 err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] getsourcecode.sh failed! Code: $err"
-    exit $err
-fi
+die $err "getsourcecode.sh failed!"
 
-#./gets/getteamviewer.sh $@
-#err=$?
-#if [[ $err != 0 ]] ; then
-    #echo "[ERROR] getteamviewer.sh failed! Code: $err"
-    #exit $err
-#fi
-
-## XXX Currently not used
-#./gets/getmusictube.sh $@
-#err=$?
-#if [[ $err != 0 ]] ; then
-    #echo "[ERROR] getmusictube.sh failed! Code: $err"
-    #exit $err
-#fi
+./gets/getteamviewer.sh $@
+err=$?
+die $err "getteamviewer.sh failed!"

@@ -1,28 +1,7 @@
 #!/bin/bash -
-##
-# @name installs.sh
-# @description
-# Install all the packages. Does the following setup:
-#
-# - Put the VIM package on hold
-# - Run apt-get update
-# - Install the packages
-# - Remove unity-webapps-service
-# - Autoremove all unneeded packages
-# - Run dist-update
-##
 
-# Only should be ran as root
-#if [[ $EUID != 0 ]] ; then
-    #echo "Run this script as root" 1>&2
-    #exit 1
-#fi
-
-cleanup()
-{
-    echo "#### Trapped in $( basename '$0' ). Exiting."
-    exit 255
-}
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -30,208 +9,175 @@ Handles the install of all needed packages from apt-get.
 
 - Holds VIM package from dpkg
 - Gets and runs "launchpad-getkeys"
-- Runs apt-get install
-- Removes unwanted packages
-- Does system update
+- Installs packages, removes unwanted, updates system
+
+optional arguments:
+-h    Print this help and exit
+-i    Run installs only
+-n    Test run, sets apt-get to simulation mode
 
 EOF
 
-if [[ "$1" == "-h" ]] ; then
-    echo $USAGE
-    exit 1;
-fi
+dryrun=
+ASSUME="--assume-yes"
+optstring=hin
+while getopts $optstring opt ; do
+    case $opt in
+    h) echo "$USAGE" ; exit 255 ;;
+    i) install_only=true ;;
+    n) dryrun=true ; ASSUME="--dry-run" ;;
+    esac
+done
 
-# Grab sudo creds
-sudo echo
+###
+# Values
+###
+INSTALLS="$CURRENT_DIR/files/installs.txt"
+REMOVES="$CURRENT_DIR/files/removes.txt"
 
+##
+# @name hold
+# @param {string} assume Either assume-yes or run simulate mode
+# @description
 # Put vim on hold, only if it is found
-echo vim hold | sudo dpkg --set-selections
-if [[ $( dpkg --list | grep -q "vim" ) ]] ; then
-    echo "**** VIM package found. Held back"
-else
-    echo "**** VIM package not found. Held"
-fi
+##
+hold()
+{
+    local assume=$1
+    local dryrun=$2
 
-# Auto get missing keys
-sudo apt-get -y --force-yes install launchpad-getkeys
-sudo launchpad-getkeys
+    local find_vim=$( dpkg --list | grep -q "vim" )
 
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] launchpad-getkeys failed! Code: $err"
-    exit $err
-fi
+    echo "vim hold" | sudo dpkg --set-selections
 
-# Update again after getting keys
-sudo apt-get update
+    if [[ $find_vim ]] ; then
+        echo "**** VIM package found. Held back"
+    else
+        echo "**** VIM package not found. Held"
+    fi
+}
 
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] apt-get update failed! Code: $err"
-    exit $err
-fi
+##
+# @name update
+# @param {string} assume Either assume-yes or run simulate mode
+# @description
+# Install launchpad getkeys and run that.
+##
+get_keys()
+{
+    local assume=$1
+    local dry=$2
 
-# Install Packages
-sudo apt-get -y --force-yes install \
-adobe-flashplugin \
-aircrack-ng \
-apt-files \
-autossh \
-baloo \
-banshee \
-bison \
-bison-doc \
-checkinstall \
-cifs-utils \
-cinnamon \
-clang-3.4 \
-cmake \
-davfs2 \
-dconf-cli \
-dconf-editor \
-debhelper \
-dolphin \
-dosbox \
-emacs \
-encfs \
-finch \
-gedit-developer-plugins \
-gedit-latex-plugin \
-gedit-plugins \
-gimp \
-git \
-git-gui \
-git-notifier \
-git-repair \
-gitpkg \
-gksu \
-google-chrome-beta \
-gufw \
-htop \
-hspell \
-indicator-kdeconnect \
-jxplorer \
-k3b \
-kdeconnect \
-kdiff3 \
-keepass2 \
-kile \
-kile-doc \
-launchpad-getkeys \
-libasound2 \
-libatk1.0-dev \
-libbonoboui2-dev \
-libc6 \
-libcairo2-dev \
-libcroco-tools \
-libedit-dev \
-libedit2 \
-libfreetype6 \
-libgcc1 \
-libgnome2-dev \
-libgnomeui-dev \
-libgtk2.0-dev \
-libk3b6-extracodecs \
-libperl-critic-perl \
-libperl-dev \
-libncurses5 \
-libncurses5-dev \
-libqt4-dev \
-libsm6 \
-libssl-dev \
-libx11-dev \
-libxdamage1 \
-libxext6 \
-libxfixes3 \
-libxpm-dev \
-libxrandr2 \
-libxrender1 \
-libxt-dev \
-libxtst6 \
-qdbus-qt5 \
-qt5-default \
-qt5-doc \
-make \
-maven \
-mercurial \
-mplayer \
-mutt \
-pinta \
-nemo-dropbox \
-nfs-common \
-nfs-kernel-server \
-nodejs \
-nodejs-dbg \
-node-sqlite3 \
-openjdk-7-jdk \
-openjdk-7-doc \
-openjdk-7-dbg \
-openssh-server \
-openssl \
-okular \
-pandoc \
-perl-base \
-perl-debug \
-perl-doc \
-perl-modules \
-pidgin \
-pidgin-indicator \
-pidgin-plugin-pack \
-playonlinux \
-python-dev \
-python-pip \
-python-requests \
-python3 \
-python3-dev \
-python3-requests \
-qct \
-rdesktop \
-ruby \
-ruby-compass \
-ruby-sqlite3 \
-sqliteman \
-sqliteman-doc \get
-solaar \
-spotify-client \
-smartmontools \
-terminator \
-texlive-full \
-tmux \
-traceroute \
-tortoisehg \
-tree \
-wine \
-xclip \
-xdotool \
-xubuntu-restricted-extras \
-youtube-dl \
-virtualbox \
-vlc \
-zlib1g \
+    sudo apt-get $assume install launchpad-getkeys
+    err=$?
+    die $err "INSTALL GETKEYS failed!"
 
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] apt-get INSTALL failed! Code: $err"
-    exit $err
-fi
+    sudo launchpad-getkeys
+    err=$?
+    die $err "launchpad-getkeys failed!"
+}
 
-echo -e "\n*** Finished installing everything... Now removing Unity stuff...*** \n"
+##
+# @name update
+# @param {string} assume Either assume-yes or run simulate mode
+# @description
+# Update all source lists
+##
+update()
+{
+    local assume=$1
+    local dry=$2
 
-sudo apt-get -y remove unity-webapps-service
+    sudo apt-get update
+    err=$?
+    die $err "apt-get UPDATE failed!"
+}
 
-echo -e "\n*** Finished removing stuff... Now upgrading packages...*** \n"
-sudo apt-get -y --force-yes dist-upgrade
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] dist-update failed! Code: $err"
-    exit $err
-fi
+##
+# @name install
+# @param {string} assume Either assume-yes or run simulate mode
+# @description
+# Install all packages
+##
+install()
+{
+    local assume=$1
+    local dry=$2
 
-sudo apt-get -y --force-yes autoremove
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] autoremove failed! Code: $err"
-    exit $err
-fi
+    if [[ $dry ]] ; then
+        echo "Install path: ${INSTALLS}"
+    fi
 
-echo -e "\n*** All done init packages*** \n"
+    sudo apt-get $assume install $(< ${INSTALLS} )
+    err=$?
+    die $err "apt-get INSTALL failed!"
+}
+
+##
+# @name remove
+# @param {string} assume Either assume-yes or run simulate mode
+# @description
+# Remove all packages
+##
+remove()
+{
+    local assume=$1
+    local dry=$2
+
+    if [[ $dry ]] ; then
+        echo "Remove path: ${REMOVES}"
+    fi
+
+    sudo apt-get $assume remove $(< ${REMOVES} )
+    err=$?
+    die $err "apt-get REMOVE failed!"
+}
+
+##
+# @name remove
+# @param {string} assume Either assume-yes or run simulate mode
+# @description
+# Runs dist-update to update all packages
+##
+dist()
+{
+    local assume=$1
+    local dry=$2
+
+    sudo apt-get $assume dist-upgrade
+    err=$?
+    die $err "apt-get DIST-UPGRADE failed!"
+}
+
+##
+# @name remove
+# @param {string} assume Either assume-yes or run simulate mode
+# @description
+# Runs autoremove of apt-get
+##
+autoremove()
+{
+    local assume=$1
+    local dry=$2
+
+    sudo apt-get $assume autoremove
+    err=$?
+    die $err "apt-get AUTOREMOVE failed!"
+}
+
+main()
+{
+    if [[ $install_only ]] ; then
+        install $ASSUME $dryrun
+        exit 0
+    fi
+
+    # Run everything else
+    hold $ASSUME $dryrun
+    get_keys $ASSUME $dryrun
+    install $ASSUME $dryrun
+    remove $ASSUME $dryrun
+    dist $ASSUME $dryrun
+    autoremove $ASSUME $dryrun
+}
+main

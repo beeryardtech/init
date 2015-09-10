@@ -1,0 +1,5 @@
+apiclient
+discovery
+oauth2client
+requests
+uritemplate.py

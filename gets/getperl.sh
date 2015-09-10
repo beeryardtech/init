@@ -1,10 +1,7 @@
 #!/bin/bash -
 
-cleanup()
-{
-    echo "#### Trapped in $( basename '$0' ). Exiting."
-    exit 255
-}
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -20,16 +17,34 @@ dryrun=
 optstring=hn
 while getopts $optstring opt ; do
     case $opt in
-    h) echo $USAGE ; exit 255 ;;
+    h) echo "$USAGE" ; exit 255 ;;
     n) dryrun=true ;;
     esac
 done
 
-sudo cpan -i \
-CPAN \
-Crypt::OpenSSL::RSA \
-File::KeePass.pm \
-JSON.pm \
-Sort::Naturally \
-Term::ReadKey.pm \
-Term::ShellUI.pm \
+###
+# Values
+###
+INSTALLS="$CURRENT_DIR/../files/perl_installs.txt"
+REMOVES="$CURRENT_DIR/../files/perl_removes.txt"
+
+get_libs()
+{
+    local dry=$1
+    if [[ $dry ]] ; then
+        echo "Will install these modules."
+        echo
+        echo "Perl: $(< ${INSTALLS} )"
+        return
+    fi
+
+    sudo cpan -i $(< ${INSTALLS} )
+    err=$?
+    die $err "Failed to install CPAN modules!"
+}
+
+main()
+{
+    get_libs $dryrun
+}
+main

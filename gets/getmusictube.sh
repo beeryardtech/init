@@ -1,18 +1,39 @@
 #!/bin/bash -
-###
-# @name InitFuncs.getmusictube
-# @description
-# Gets the newest version of music tube. Uses `wget` to download the deb
-# package and then uses `dpkg -i` to install it.
-##
-cleanup()
-{
-    echo "#### Trapped in buildycm.sh. Exiting."
-    exit 255
-}
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
-. ./init.funcs.sh
+read -r -d '' USAGE << "EOF"
+Gets the newest version of music tube. Uses `wget` to download the deb
+package and then uses `dpkg -i` to install it.
 
-url_mt="http://flavio.tordini.org/files/musictube/musictube64.deb"
-getdeb $url_mt
+optional arguments:
+-h    Print this help and exit
+-n    Test run
+
+EOF
+
+dryrun=
+optstring=hn
+while getopts $optstring opt ; do
+    case $opt in
+    h) echo "$USAGE" ; exit 255 ;;
+    n) dryrun=true ;;
+    esac
+done
+
+main()
+{
+    URL_MT="http://flavio.tordini.org/files/musictube/musictube64.deb"
+    if [[ $dryrun ]] ; then
+        echo "Url: $URL_MT"
+        return
+    fi
+
+    $CURRENT_DIR/helpers/getdeb $URL_MT
+    $err=$?
+    die $err "Failed to get music tube!"
+}
+main
+

@@ -1,21 +1,11 @@
 #!/bin/bash -
-###
-# @name Init.buildycm
-# @param {string} repos
-# @description
-# Build the VIM plugin YouCompleteMe (ycm).
-##
-cleanup()
-{
-    echo "#### Trapped in $( basename '$0' ). Exiting."
-    exit 255
-}
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
-Runs the "build" init scripts and checks results.
-NOTE that if any script fails exits with that error code
-and does not continue.
+Build the VIM plugin YouCompleteMe (ycm).
 
 optional arguments:
 -h    Print this help and exit
@@ -27,30 +17,51 @@ dryrun=
 optstring=hn
 while getopts $optstring opt ; do
     case $opt in
-    h) echo $USAGE ; exit 255 ;;
+    h) echo -e "$USAGE" ; exit 255 ;;
     n) dryrun=true ;;
     esac
 done
 
-if [[ -d ~/.vim/bundle/YouCompleteMe ]] ; then
-    pushd $HOME/.vim/bundle/YouCompleteMe
+##
+# Values
+##
+REPO=~/.vim/bundle/YouCompleteMe
 
-    echo "*** Compiling YCM ***"
-    ./install.sh --clang-completer
-    error=$?
+check_ycm()
+{
+    local repo="$1"
+    local script="${repo}/install.sh"
 
-    echo "YCM done:" $error
+    if [[ ! -d "$repo" ]] ; then
+        die 1 "YCM repo does not exist! Dir: $repo"
+    elif [[ ! -f "$script" ]] ; then
+        die 1 "Install script does not exist! script: $script"
+    elif [[ ! -x "$script" ]] ; then
+        die 1 "Install script is not executable! script: $script"
+    fi
+}
 
-     #Try again without clang
-    if [[ $error == 1 ]] ; then
-        echo "Trying again without clang support"
-        ./install.sh
-        echo "YCM done:" $?
+build_ycm()
+{
+    local dry=$1
+    local args="--clang-completer"
+
+    if [[ $dry ]] ; then
+        echo "Args: $args"
+        return
     fi
 
-    popd
+    ./installs.sh "$args"
+    err=$?
+    die $err "YCM install script failed! Args: $args"
+}
 
-else
-    echo "YCM Directory does not exist!"
-    echo
-fi
+main()
+{
+    check_ycm $REPO
+
+    pushd $REPO
+    build_ycm $dryrun
+    popd
+}
+main

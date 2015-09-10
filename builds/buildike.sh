@@ -1,9 +1,7 @@
 #!/bin/bash -
-cleanup()
-{
-    echo "#### Trapped in $( basename '$0' ). Exiting."
-    exit 255
-}
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -24,40 +22,39 @@ while getopts $optstring opt ; do
     esac
 done
 
-$url_ike=https://www.shrew.net/download/ike/ike-2.2.1-release.tgz
-repos=$HOME/repos
-pushd $repos
+##
+# Values
+##
+REPOS="~/repos/ike"
 
-# Get the tarball
-wget -O - $url_ike | tar xvfz -
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] get code failed! Code: $err"
-    exit $err
-fi
+build_ike()
+{
+    local repo=$1
+    local dry=$2
+    local cmake_args="-DDEBUG=YES -DQTGUI=YES -DNATT=YES -DLDAP=YES"
 
-cd ike
+    if [[ $dry ]] ; then
+        echo "Repo: $repo"
+        echo "Cmake args: $args"
+        return
+    fi
 
-# Make the code
-cmake -DDEBUG=YES -DQTGUI=YES -DNATT=YES -DLDAP=YES
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] cmake failed! Code: $err"
-    exit $err
-fi
+    cmake $cmake_args
+    err=$?
+    die $err "Cmake failed! Args: $cmake_args"
 
-make
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] make failed! Code: $err"
-    exit $err
-fi
+    make
+    err=$?
+    die $err "make failed!"
 
-sudo make install
-err=$?
-if [[ $err != 0 ]] ; then
-    echo "[ERROR] make install failed! Code: $err"
-    exit $err
-fi
+    sudo make install
+    err=$?
+    die $err "Make Install failed!"
+}
 
-popd
+main()
+{
+    pushd $REPOS
+    build_ike $REPOS $dryrun
+    popd
+}

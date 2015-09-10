@@ -1,14 +1,7 @@
 #!/bin/bash -
-##
-# @name setupwine.sh
-# @param {string} -e _excluded_ Files/dirs to be excluded from linking
-# @description
-##
-cleanup()
-{
-    echo "#### Trapped in $( basename $0 ) Exiting."
-    exit 255
-}
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -21,18 +14,18 @@ optional arguments:
 
 EOF
 
-dryrun=
+dryrun=false
 optstring=hn
 while getopts $optstring opt ; do
     case $opt in
-    h) echo $USAGE ; exit 255 ;;
+    h) echo "$USAGE" ; exit 255 ;;
     n) dryrun=true ;;
     esac
 done
 
 moveddir=~/tmp/moved
-srcDir=~/.wine/
-destDir=~/Dropbox/shared/backup/wine/
+destDir=~/.wine/
+srcDir=~/Dropbox/shared/backup/wine/
 
 targetList=(
     "system.reg"
@@ -50,17 +43,24 @@ for (( i=0; i < ${#targetList[@]}; i++ )) ; do
 
     if [[ -f "${target}" || -a "${target}" ]] ; then
         echo "Moving $target to $moveddir"
-        mv "$target" "$moveddir"
+        [[ $dryrun == false ]] && mv "$target" "$moveddir"
+    fi
+
+    # Test if containing directory exists. If not make it
+    finalDestDir="$(dirname "$finalDest")"
+
+    if [[ ! -d "$finalDestDir" ]] ; then
+        echo "Final Dest Dir did not exist: $finalDestDir"
+        [[ $dryrun -eq false ]] && mkdir -p "$finalDestDir"
+        echo "Final Dest Dir created!"
     fi
 
     # If symlink of the same name already exists then rm it first
     if [[ -h "${finalDest}" ]] ; then
         echo "*** Deleting link $finalDest - "
-        rm "$finalDest"
+        [[ $dryrun == false ]] && rm "$finalDest"
     fi
 
     echo -e "Creating link from $target to $finalDest \n"
-    ln -s "$target" "$finalDest"
+    [[ $dryrun == false ]] && ln -s "$target" "$finalDest"
 done
-
-

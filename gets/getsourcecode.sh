@@ -1,33 +1,95 @@
-###
-# @name InitFuncs.getsourcecode
-# @param {string} repos
-# @description
-# Fetches source code from varies repos and puts them in
-# dir defined by `$repos`
-###
-cleanup()
-{
-    echo "#### Trapped in buildycm.sh. Exiting."
-    exit 255
-}
+#!/bin/bash -
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
-repos=~/repos
-vundle=~/.vim/bundle/vundle
+read -r -d '' USAGE << "EOF"
+Fetches source code from varies repos and puts them in
+dir defined by `$repos`
 
-# Download the source code
-if [[ ! -d "$repos/vim" ]] ; then
-    hg clone https://vim.googlecode.com/hg/ "$repos/vim"
-fi
+optional arguments:
+-h    Print this help and exit
+-n    Test run
 
-# Build it
-pushd "$repos/vim"
+EOF
 
-hg pull
-hg update
+dryrun=
+optstring=hn
+while getopts $optstring opt ; do
+    case $opt in
+    h) echo "$USAGE" ; exit 255 ;;
+    n) dryrun=true ;;
+    esac
+done
 
-popd
+###
+# Values
+###
+REPOS=~/repos
 
-git clone https://github.com/gmarik/vundle.git $vundle
-#git clone http://llvm.org/git/llvm.git $repos/llvm
-git clone http://llvm.org/git/clang.git $repos/clang
+get_vim()
+{
+    local repo=$1
+    local dry=$2
+    local url="https://vim.googlecode.com/hg/"
+
+    if [[ $dry ]] ; then
+        [[ -d "$repo" ]] && exists=true || exists=false
+        echo "Clone from url: $url"
+        echo "Clone to dir: $repo"
+        echo "Dir exists: $exist"
+        return
+    fi
+
+    if [[ ! -d "$repo" ]] ; then
+        hg clone "$url" "$repo"
+        err=$?
+        die $err "Failed to clone vim!"
+    else
+        echo "Directory exists. Not cloning."
+    fi
+
+    # Update code
+    pushd "$repo"
+
+    # Pull repo
+    hg pull
+    err=$?
+    die $err "Failed to pull vim repo!"
+
+    # Run update
+    hg update
+    err=$?
+    die $err "Failed to update vim repo!"
+
+    popd
+}
+
+get_ike()
+{
+    local repo=$1
+    local dry=$2
+    local url="https://www.shrew.net/download/ike/ike-2.2.1-release.tgz"
+
+    if [[ $dry ]] ; then
+        [[ -d "$repo" ]] && exists=true || exists=false
+        echo "Fetch from url: $url"
+        echo "Dir exists: $exist"
+        return
+    fi
+
+    # Delete repo directory first
+    rm -rf "$repo"
+
+    $CURRENT_DIR/helpers/gettar.sh "$url" "$repo"
+    err=$?
+    die $err "Failed to get IKE!"
+}
+
+main()
+{
+    get_vim "$REPOS/vim" $dryrun
+    get_ike "$REPOS/ike" $dryrun
+}
+main

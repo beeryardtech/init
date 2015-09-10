@@ -1,60 +1,139 @@
 #!/bin/bash -
-##
-# @name InitFuncs.buildvim
-# @param {string} repos
-# @description
-# Builds VIM from source code. Includes setting up Vundle
-##
-cleanup()
-{
-    echo "#### Trapped in buildvim.sh. Exiting."
-    exit 255
-}
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
-repos=~/repos/
+read -r -d '' USAGE << "EOF"
+Builds VIM from source code.
 
-# Remove old version of vim
-sudo apt-get -y remove vim-tiny vim-common
-sudo dpkg --purge vim vim-tiny vim-common
+optional arguments:
+-h    Print this help and exit
+-n    Test run
 
-pushd "$repos/vim"
-# Currently not support using both python and python3... Limit to python2.7 for now
-./configure --with-features=huge \
---enable-cscope \
---enable-luainterp \
---enable-perlinterp \
---enable-pythoninterp \
---enable-rubyinterp \
---enable-gui=gtk2 \
---enable-multibyte \
---enable-largefile \
---prefix=/usr \
---with-lua \
---with-luajit \
---with-python-config-dirl=/usr/lib/python2.7 \
---with-x=yes
-make clean
-make VIMRUNTIMEDIR=/usr/share/vim/vim74
+EOF
 
-# -D --> Make deb pkg, -y --> accept default values
-sudo checkinstall -D -y \
---pkgname vim \
---pkgversion 7.4.192 \
---provides editor \
+##
+# Values
+##
+REPO=~/repos/vim
+CHECK_ARGS="${CURRENT_DIR}/../files/vim_check_args.txt"
+CONFIG_ARGS="${CURRENT_DIR}/../files/vim_config_args.txt"
 
-popd
+remove_vim()
+{
+    local dry=$1
+    local vim_pkg="vim vim-tiny vim-common"
 
-# Check if vim was properly installed
-which vim
-if [[ $? == 0 ]] ; then
-    echo "Vim installed correctly"
-else
-    echo "\n *** Install Failed! *** \n" && return
-fi
+    if [[ $dry ]] ; then
+        echo "Packages to remove: $vim_pkg"
+        sudo apt-get --assume-no remove "$vim_pkg"
+        return
+    fi
 
-# Setup vim as default editor
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-sudo update-alternatives --set editor /usr/bin/vim
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-sudo update-alternatives --set vi /usr/bin/vim
+    sudo apt-get --assume-yes remove "$vim_pkg"
+    sudo dpkg --purge "$vim_pkg"
+}
+
+config_build()
+{
+    local arg_file=$1
+    local dry=$2
+    local script="./configure"
+
+    if [[ $dry ]] ; then
+        [[ -d "$arg_file" ]] && exists=true || exists=false
+        echo "Arg file exists: $exists"
+        echo "Args: $(< ${arg_file} )"
+        return
+    fi
+
+    if [[ ! -f "$arg_file" ]] ; then
+        die 1 "Args file does not exist! arg_file: $arg_file"
+    elif [[ ! -f "$script" ]] ; then
+        die 1 "Config script does not exist! script: $script"
+    elif [[ ! -x "$script" ]] ; then
+        die 1 "Config script is not executable! script: $script"
+    fi
+
+    ${script} $(< ${arg_file} )
+    err=$?
+    die $err "Failed to config vim! Arg file: $arg_file Args: $(< ${arg_file} )"
+}
+
+do_make()
+{
+    local dry=$1
+    local args="VIMRUNTIMEDIR=/usr/share/vim/vim74"
+
+    if [[ $dry ]] ; then
+        echo "Args: $args"
+        return
+    fi
+
+    make clean
+    err=$?
+    die $err "Make clean failed!"
+
+    make "$args"
+    err=$?
+    die $err "Make failed! Args: $args"
+}
+
+check_install()
+{
+    local arg_file=$1
+    local dry=$2
+
+    if [[ $dry ]] ; then
+        [[ -d "$arg_file" ]] && exists=true || exists=false
+        echo "Arg file exists: $exists"
+        echo "Args: $(< ${arg_file} )"
+        return
+    fi
+
+    sudo checkinstall $(< ${arg_file} )
+    err=$?
+    die $err "Check install failed! Arg file: $arg_file Args: $(< ${arg_file} )"
+}
+
+update_alts()
+{
+    local dry=$1
+
+    if [[ $dry ]] ; then
+        echo "Update alts"
+        return
+    fi
+
+    # Setup vim as default editor
+    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+    sudo update-alternatives --set editor /usr/bin/vim
+    sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+    sudo update-alternatives --set vi /usr/bin/vim
+}
+
+vim_check()
+{
+    which vim
+    err=$?
+    die $err "Install failed! Vim is not available"
+}
+
+main()
+{
+    sudo echo
+
+    pushd "$REPO"
+
+    # Run install processes
+    remove_vim $dryrun
+    config_build $CONFIG_ARGS $dryrun
+    do_make $dryrun
+    check_install $CHECK_ARGS $dryrun
+    update_alts $dryrun
+    vim_check
+
+    popd
+}
+main

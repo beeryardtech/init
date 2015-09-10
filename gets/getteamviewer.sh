@@ -1,19 +1,39 @@
 #!/bin/bash -
-###
-# @name Init.getteamviewer
-# @description
-# Gets the newest version of TeamViewer. Uses `wget` to download the deb
-# package and then uses `dpkg -i` to install it.
-##
-cleanup()
-{
-    echo "#### Trapped in buildycm.sh. Exiting."
-    exit 255
-}
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
-. ./init.funcs.sh
+read -r -d '' USAGE << "EOF"
+Gets the newest version of TeamViewer. Uses `wget` to download the deb
+package and then uses `dpkg -i` to install it.
 
-# Needs the 32bit version
-url_tv="http://download.teamviewer.com/download/teamviewer_linux.deb"
-getdeb $url_tv
+optional arguments:
+-h    Print this help and exit
+-n    Test run
+
+EOF
+
+dryrun=
+optstring=hn
+while getopts $optstring opt ; do
+    case $opt in
+    h) echo "$USAGE" ; exit 255 ;;
+    n) dryrun=true ;;
+    esac
+done
+
+main()
+{
+    # Needs the 32bit version
+    URL_TV="http://download.teamviewer.com/download/teamviewer_linux.deb"
+    if [[ $dryrun ]] ; then
+        echo "Url: $URL_MT"
+        return
+    fi
+
+    $CURRENT_DIR/helpers/getdeb $URL_TV_
+    $err=$?
+    die $err "Failed to get TeamViewer!"
+}
+main

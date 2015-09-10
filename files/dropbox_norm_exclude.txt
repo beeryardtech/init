@@ -1,0 +1,7 @@
+"repos/beeryardtech/scripts/dots/_vim/bundle"
+"repos/nextgen/ui/.sass-cache"
+"repos/nextgen/ui/.tmp"
+"repos/nextgen/ui/build"
+"repos/nextgen/ui/dist"
+"repos/nextgen/ui/node_modules"
+"repos/nextgen/ui/target"

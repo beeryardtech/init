@@ -33,16 +33,18 @@ REMOVES="$CURRENT_DIR/../files/pip_removes.txt"
 
 get_libs()
 {
-    local dry=$1
+    local installs=$1
+    local dry=$2
 
     if [[ $dry ]] ; then
+        [[ -f "$installs" ]] && exists=true || exists=false
+        echo "Installs exists: $exists"
         echo "Will install these modules."
-        echo
-        echo "Pyton: $(< ${INSTALLS} )"
+        echo "Pyton: $(< ${installs} )"
         return
     fi
 
-    sudo pip install --upgrade $(< ${INSTALLS} )
+    sudo pip install --upgrade $(< ${installs} )
     err=$?
     die $err "Failed to install PIP modules!"
 }
@@ -56,6 +58,7 @@ get_single_lib()
         echo "Will install $1"
         return
     fi
+
     sudo pip install --upgrade $mod
     err=$?
     die $err "Failed to install $mod pip!"
@@ -63,15 +66,12 @@ get_single_lib()
 
 main()
 {
-    get_libs $dryrun
+    get_libs $INSTALLS $dryrun
 
     # See https://github.com/sigmavirus24/github3.py
     # See http://github3py.readthedocs.org/en/master/
     get_single_lib "github3.py" $dryrun
     get_single_lib "google-api-python-client" $dryrun
     get_single_lib "gdcmdtools" $dryrun
-
-    echo
-    echo "*** Finished installing all Python Libs... ***"
 }
 main

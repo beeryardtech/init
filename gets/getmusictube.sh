@@ -22,18 +22,20 @@ while getopts $optstring opt ; do
     n) dryrun=true ;;
     esac
 done
+##
+# Values
+##
+URL_MT="http://flavio.tordini.org/files/musictube/musictube64.deb"
 
 main()
 {
-    URL_MT="http://flavio.tordini.org/files/musictube/musictube64.deb"
     if [[ $dryrun ]] ; then
         echo "Url: $URL_MT"
         return
     fi
 
-    $CURRENT_DIR/helpers/getdeb $URL_MT
+    $CURRENT_DIR/../helpers/getdeb $URL_MT
     $err=$?
     die $err "Failed to get music tube!"
 }
 main
-

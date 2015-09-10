@@ -23,16 +23,17 @@ while getopts $optstring opt ; do
     esac
 done
 
+URL_TV="http://download.teamviewer.com/download/teamviewer_linux.deb"
+
 main()
 {
     # Needs the 32bit version
-    URL_TV="http://download.teamviewer.com/download/teamviewer_linux.deb"
     if [[ $dryrun ]] ; then
-        echo "Url: $URL_MT"
+        echo "Url: $URL_TV"
         return
     fi
 
-    $CURRENT_DIR/helpers/getdeb $URL_TV_
+    $CURRENT_DIR/../helpers/getdeb $URL_TV
     $err=$?
     die $err "Failed to get TeamViewer!"
 }

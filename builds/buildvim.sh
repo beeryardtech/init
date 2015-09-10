@@ -13,6 +13,15 @@ optional arguments:
 
 EOF
 
+dryrun=
+optstring=hn
+while getopts $optstring opt ; do
+    case $opt in
+    h) echo -e "$USAGE" ; exit 255 ;;
+    n) dryrun=true ;;
+    esac
+done
+
 ##
 # Values
 ##
@@ -42,7 +51,9 @@ config_build()
     local script="./configure"
 
     if [[ $dry ]] ; then
-        [[ -d "$arg_file" ]] && exists=true || exists=false
+        local exists=
+        [[ -f "$arg_file" ]] && exists=true || exists=false
+        echo "Arg file: $arg_file"
         echo "Arg file exists: $exists"
         echo "Args: $(< ${arg_file} )"
         return
@@ -86,7 +97,7 @@ check_install()
     local dry=$2
 
     if [[ $dry ]] ; then
-        [[ -d "$arg_file" ]] && exists=true || exists=false
+        [[ -f "$arg_file" ]] && exists=true || exists=false
         echo "Arg file exists: $exists"
         echo "Args: $(< ${arg_file} )"
         return
@@ -122,7 +133,7 @@ vim_check()
 
 main()
 {
-    sudo echo
+    [[ $dryrun ]] && echo "In dryrun" || sudo echo
 
     pushd "$REPO"
 

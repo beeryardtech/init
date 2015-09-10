@@ -1,0 +1,6 @@
+"system.reg"
+"user.reg"
+"userdef.reg"
+"drive_c/GOG Games/"
+"drive_c/Program Files/"
+"drive_c/users/tgoldie/Application Data/"

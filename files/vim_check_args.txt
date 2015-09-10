@@ -1,14 +1,5 @@
---with-features=huge
---enable-cscope
---enable-luainterp
---enable-perlinterp
---enable-pythoninterp
---enable-rubyinterp
---enable-gui=gtk2
---enable-multibyte
---enable-largefile
---prefix=/usr
---with-lua
---with-luajit
---with-python-config-dirl=/usr/lib/python2.7
---with-x=yes
+-D
+-y
+--pkgname vim
+--pkgversion 7.4.192
+--provides editor

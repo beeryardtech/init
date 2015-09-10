@@ -5,7 +5,7 @@ source "$CURRENT_DIR/helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
-Runs the "build" init scripts and checks results.
+Runs the "BUILD" init scripts and checks results.
 NOTE that if any script fails exits with that error code
 and does not continue.
 
@@ -44,5 +44,5 @@ main()
 
     echo "*** Builds have finished! *** "
 }
-main
+main $@
 

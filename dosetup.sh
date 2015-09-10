@@ -1,7 +1,7 @@
 #!/bin/bash -
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$CURRENT_DIR/../helpers/helpers.sh"
+source "$CURRENT_DIR/helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -26,7 +26,19 @@ done
 
 main()
 {
-    echo "not implemented"
+    ./setups/setups.sh $@
+    err=$?
+    die $err "setups.sh failed!"
+
+    ./setups/setupdropbox.sh $@
+    err=$?
+    die $err "setupdropbox.sh failed!"
+
+    ./setups/setupwine.sh $@
+    err=$?
+    die $err "setupwine.sh failed!"
+
+    echo "*** Setups have finished! ***"
 }
 main
 

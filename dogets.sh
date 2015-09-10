@@ -1,7 +1,7 @@
 #!/bin/bash -
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$CURRENT_DIR/../helpers/helpers.sh"
+source "$CURRENT_DIR/helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -19,7 +19,7 @@ dryrun=
 optstring=hn
 while getopts $optstring opt ; do
     case $opt in
-    h) echo $USAGE ; exit 255 ;;
+    h) echo "$USAGE" ; exit 255 ;;
     n) dryrun=true ;;
     esac
 done
@@ -30,7 +30,7 @@ die $err "getperl.sh failed!"
 
 ./gets/getpythonlibs.sh $@
 err=$?
-die "getpythonlibs.sh failed!"
+die $err "getpythonlibs.sh failed!"
 
 ./gets/getsourcecode.sh $@
 err=$?

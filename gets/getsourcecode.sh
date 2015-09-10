@@ -23,9 +23,9 @@ while getopts $optstring opt ; do
     esac
 done
 
-###
+##
 # Values
-###
+##
 REPOS=~/repos
 
 get_vim()
@@ -38,7 +38,7 @@ get_vim()
         [[ -d "$repo" ]] && exists=true || exists=false
         echo "Clone from url: $url"
         echo "Clone to dir: $repo"
-        echo "Dir exists: $exist"
+        echo "Vim dir exists: $exists"
         return
     fi
 
@@ -75,14 +75,14 @@ get_ike()
     if [[ $dry ]] ; then
         [[ -d "$repo" ]] && exists=true || exists=false
         echo "Fetch from url: $url"
-        echo "Dir exists: $exist"
+        echo "IKE dir exists: $exists"
         return
     fi
 
     # Delete repo directory first
     rm -rf "$repo"
 
-    $CURRENT_DIR/helpers/gettar.sh "$url" "$repo"
+    $CURRENT_DIR/../helpers/gettar.sh "$url" "$repo"
     err=$?
     die $err "Failed to get IKE!"
 }

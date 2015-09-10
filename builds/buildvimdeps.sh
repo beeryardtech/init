@@ -26,7 +26,7 @@ done
 ##
 # Values
 ##
-BUNDLE="~/.vim/bundle"
+BUNDLE="${HOME}/.vim/bundle"
 
 # Tern
 REPO_TERN="${BUNDLE}/tern_for_vim"
@@ -42,6 +42,7 @@ get_vundle()
 {
     local url="$1"
     local repo="$2"
+    local dry=$3
 
     if [[ $dry ]] ; then
         [[ -d "$repo" ]] && exists=true || exists=false
@@ -117,7 +118,7 @@ install_tern()
 main()
 {
 
-    get_vundle "$URL_VUNDLE" "$REPO_TERN" $dryrun
+    get_vundle "$URL_VUNDLE" "$REPO_VUNDLE" $dryrun
     get_plugins $dryrun
     get_tern_package_json "$TERN_PACKAGE_FILE" "$TERN_PACKAGE_URL" $dryrun
     install_tern "$REPO_TERN" "$NPM_REGISTRY" $dryrun

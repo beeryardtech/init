@@ -28,29 +28,29 @@ done
 ##
 # Values
 ##
-TPM_DIR="~/.tmux/plugins/tpm"
+TPM_DIR=~/.tmux/plugins/tpm
+URL_TMUX="http://ftp.us.debian.org/debian/pool/main/t/tmux/tmux_2.0-3~bpo8+1_amd64.deb"
+URL_TPM="https://github.com/tmux-plugins/tpm"
 
 get_tmux()
 {
     local dry=$1
-    local URL_TMUX="http://ftp.us.debian.org/debian/pool/main/t/tmux/tmux_2.0-3~bpo8+1_amd64.deb"
 
     if [[ $dryrun ]] ; then
         echo "Url: $URL_TMUX"
         return
     fi
-    $CURRENT_DIR/helpers/getdeb $URL_TMUX
+    $CURRENT_DIR/../helpers/getdeb $URL_TMUX
 }
 
 get_tpm()
 {
     local repo=$1
     local dry=$2
-    local url="https://github.com/tmux-plugins/tpm"
 
     if [[ $dry ]] ; then
         [[ -d "$repo" ]] && exists=true || exists=false
-        echo "Clone from url: $url"
+        echo "Clone from url: $URL_TPM"
         echo "Clone to dir: $repo"
         echo "Dir exists: $exist"
         return
@@ -92,12 +92,15 @@ get_tpm_plugins()
         ${script}
         err=$?
         die $err "Failed to install TPM Modules!"
+
     elif [[ ! -x "${script}" ]] ; then
         err=1
         die $err "Install script exists but not executable! Path: $script"
+
     else
         err=1
         die $err "Install script not there! Path: $script"
+
     fi
 }
 

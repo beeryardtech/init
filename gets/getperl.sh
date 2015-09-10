@@ -30,21 +30,24 @@ REMOVES="$CURRENT_DIR/../files/perl_removes.txt"
 
 get_libs()
 {
-    local dry=$1
+    local installs=$1
+    local dry=$2
+
     if [[ $dry ]] ; then
+        [[ -f "$installs" ]] && exists=true || exists=false
+        echo "Installs exists: $exists"
         echo "Will install these modules."
-        echo
-        echo "Perl: $(< ${INSTALLS} )"
+        echo "Perl: $(< ${installs} )"
         return
     fi
 
-    sudo cpan -i $(< ${INSTALLS} )
+    sudo cpan -i $(< ${installs} )
     err=$?
     die $err "Failed to install CPAN modules!"
 }
 
 main()
 {
-    get_libs $dryrun
+    get_libs $INSTALLS $dryrun
 }
 main

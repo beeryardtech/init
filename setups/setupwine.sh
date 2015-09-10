@@ -23,44 +23,55 @@ while getopts $optstring opt ; do
     esac
 done
 
+##
+# Values
+##
+TARGET_LIST="${CURRENT_DIR}/../files/wine_target_list.txt"
+
 moveddir=~/tmp/moved
 destDir=~/.wine/
 srcDir=~/Dropbox/shared/backup/wine/
 
-targetList=(
-    "system.reg"
-    "user.reg"
-    "userdef.reg"
-    "drive_c/GOG Games/"
-    "drive_c/Program Files/"
-    "drive_c/users/tgoldie/Application Data/"
-)
+targetList=$(< $TARGET_LIST)
 
-# XXX Must use indices instead of for-in when elems have spaces
-for (( i=0; i < ${#targetList[@]}; i++ )) ; do
-    target="$srcDir/${targetList[$i]}"
-    finalDest="$destDir/${targetList[$i]}"
+do_linkify()
+{
+    # TODO
+    #local dry=$1
 
-    if [[ -f "${target}" || -a "${target}" ]] ; then
-        echo "Moving $target to $moveddir"
-        [[ $dryrun == false ]] && mv "$target" "$moveddir"
-    fi
+    # XXX Must use indices instead of for-in when elems have spaces
+    for (( i=0; i < ${#targetList[@]}; i++ )) ; do
+        target="$srcDir/${targetList[$i]}"
+        finalDest="$destDir/${targetList[$i]}"
 
-    # Test if containing directory exists. If not make it
-    finalDestDir="$(dirname "$finalDest")"
+        if [[ -f "${target}" || -a "${target}" ]] ; then
+            echo "Moving $target to $moveddir"
+            [[ $dryrun == false ]] && mv "$target" "$moveddir"
+        fi
 
-    if [[ ! -d "$finalDestDir" ]] ; then
-        echo "Final Dest Dir did not exist: $finalDestDir"
-        [[ $dryrun -eq false ]] && mkdir -p "$finalDestDir"
-        echo "Final Dest Dir created!"
-    fi
+        # Test if containing directory exists. If not make it
+        finalDestDir="$(dirname "$finalDest")"
 
-    # If symlink of the same name already exists then rm it first
-    if [[ -h "${finalDest}" ]] ; then
-        echo "*** Deleting link $finalDest - "
-        [[ $dryrun == false ]] && rm "$finalDest"
-    fi
+        if [[ ! -d "$finalDestDir" ]] ; then
+            echo "Final Dest Dir did not exist: $finalDestDir"
+            [[ $dryrun -eq false ]] && mkdir -p "$finalDestDir"
+            echo "Final Dest Dir created!"
+        fi
 
-    echo -e "Creating link from $target to $finalDest \n"
-    [[ $dryrun == false ]] && ln -s "$target" "$finalDest"
-done
+        # If symlink of the same name already exists then rm it first
+        if [[ -h "${finalDest}" ]] ; then
+            echo "*** Deleting link $finalDest - "
+            [[ $dryrun == false ]] && rm "$finalDest"
+        fi
+
+        echo -e "Creating link from $target to $finalDest \n"
+        [[ $dryrun == false ]] && ln -s "$target" "$finalDest"
+    done
+
+}
+
+main()
+{
+    do_linkify $dryrun
+}
+main

@@ -41,7 +41,7 @@ get_tar()
         return
     fi
 
-    wget -O "$path" "$url"
+    wget -O $path "$url"
     err=$?
     die $err "Failed to get file! Url: $url Path: $path"
 }
@@ -60,7 +60,7 @@ unpack()
 
     # Extract file to same dir as path
     # The `z` means uncompress it first
-    tar -C "$dir" xvzf "$path"
+    tar -C "$dir" -xvzf "$path"
     err=$?
     die $err "Failed to untar file! Path: $path"
 }
@@ -71,7 +71,7 @@ main()
     local dir="$2"
     local path=$( get_path_from_url "$url" )
 
-    get_tar "$url" "$path" $dryrun
+    get_tar "$url" "$dir" $dryrun
     unpack "$path" "$dir" $dryrun
 }
 main $@

@@ -26,7 +26,7 @@ done
 ##
 # Values
 ##
-REPOS=~/repos
+REPOS=$HOME/repos
 
 get_vim()
 {
@@ -76,6 +76,7 @@ get_ike()
         [[ -d "$repo" ]] && exists=true || exists=false
         echo "Fetch from url: $url"
         echo "IKE dir exists: $exists"
+        $CURRENT_DIR/../helpers/gettar.sh "$url" "$repo" $dry
         return
     fi
 
@@ -89,7 +90,7 @@ get_ike()
 
 main()
 {
-    get_vim "$REPOS/vim" $dryrun
+    #get_vim "$REPOS/vim" $dryrun
     get_ike "$REPOS/ike" $dryrun
 }
 main

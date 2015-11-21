@@ -25,13 +25,14 @@ done
 ##
 # Values
 ##
-REPOS="~/repos/ike"
+REPO="~/repos/ike"
+ARG_FILE="$CURRENT_DIR/../files/ike_cmake_args.txt"
 
 build_ike()
 {
     local repo=$1
     local arg_file=$2
-    local dry=$2
+    local dry=$3
 
     if [[ $dry ]] ; then
         [[ -d "$repo" ]] && exists=true || exists=false
@@ -59,6 +60,7 @@ build_ike()
 main()
 {
     pushd $REPOS
-    build_ike $REPOS $dryrun
+    build_ike $REPO $ARG_FILE $dryrun
     popd
 }
+main

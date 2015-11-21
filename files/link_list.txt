@@ -47,6 +47,10 @@ _kde/share/config/kdiff3rc.txt
 _kde/share/config/kilerc.txt
 _kde/share/config/konsolerc.txt
 _kde/share/config/okularrc.txt
-_purple
+_mpd
+_ncmpcpp
+_purple/accounts.xml
+_purple/prefs.xml
+_purple/accels
 _vim
 _vimperator

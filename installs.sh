@@ -25,7 +25,7 @@ while getopts $optstring opt ; do
     case $opt in
     h) echo "$USAGE" ; exit 255 ;;
     i) install_only=true ;;
-    n) dryrun=true ; ASSUME="--dry-run" ;;
+    n) echo "In DryRun Mode" ; dryrun=true ; ASSUME="--dry-run" ;;
     esac
 done
 
@@ -44,11 +44,15 @@ REMOVES="$CURRENT_DIR/files/removes.txt"
 hold()
 {
     local assume=$1
-    local dryrun=$2
+    local dry=$2
 
     local find_vim=$( dpkg --list | grep -q "vim" )
 
-    echo "vim hold" | sudo dpkg --set-selections
+    if [[ $dry ]] ; then
+        echo "Found vim: $find_vim"
+    else
+        echo "vim hold" | sudo dpkg --set-selections
+    fi
 
     if [[ $find_vim ]] ; then
         echo "**** VIM package found. Held back"

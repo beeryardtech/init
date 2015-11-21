@@ -12,28 +12,32 @@ Handles the install of all needed packages from apt-get.
 - Installs packages, removes unwanted, updates system
 
 optional arguments:
+-f    Path to install file
 -h    Print this help and exit
 -i    Run installs only
 -n    Test run, sets apt-get to simulation mode
+-r    Path to remove file
 
 EOF
-
-dryrun=
-ASSUME="--assume-yes"
-optstring=hin
-while getopts $optstring opt ; do
-    case $opt in
-    h) echo "$USAGE" ; exit 255 ;;
-    i) install_only=true ;;
-    n) echo "In DryRun Mode" ; dryrun=true ; ASSUME="--dry-run" ;;
-    esac
-done
 
 ###
 # Values
 ###
 INSTALLS="$CURRENT_DIR/files/installs.txt"
 REMOVES="$CURRENT_DIR/files/removes.txt"
+
+dryrun=
+ASSUME="--assume-yes"
+optstring=f:hinr:
+while getopts $optstring opt ; do
+    case $opt in
+        f) INSTALLS=$OPTARG ; echo "Updating install file to $INSTALLS" ;;
+        h) echo "$USAGE" ; exit 255 ;;
+        i) install_only=true ;;
+        n) echo "In DryRun Mode" ; dryrun=true ; ASSUME="--dry-run" ;;
+        f) REMOVES=$OPTARG ; echo "Updating remove file to $REMOVES" ;;
+    esac
+done
 
 ##
 # @name hold

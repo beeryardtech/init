@@ -1,2 +1,7 @@
-unity-webapps-service
+mpd
+mplayer
+pinta
+pidgin-indicator
+ncmpcpp
 terminator
+unity-webapps-service

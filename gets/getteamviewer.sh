@@ -33,8 +33,8 @@ main()
         return
     fi
 
-    $CURRENT_DIR/../helpers/getdeb $URL_TV
-    $err=$?
+    $CURRENT_DIR/../helpers/getdeb.sh $URL_TV
+    err=$?
     die $err "Failed to get TeamViewer!"
 }
 main

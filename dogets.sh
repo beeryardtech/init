@@ -24,13 +24,13 @@ while getopts $optstring opt ; do
     esac
 done
 
-./gets/getperl.sh $@
-err=$?
-die $err "getperl.sh failed!"
+#./gets/getperl.sh $@
+#err=$?
+#die $err "getperl.sh failed!"
 
-./gets/getpythonlibs.sh $@
-err=$?
-die $err "getpythonlibs.sh failed!"
+#./gets/getpythonlibs.sh $@
+#err=$?
+#die $err "getpythonlibs.sh failed!"
 
 ./gets/getsourcecode.sh $@
 err=$?

@@ -21,7 +21,6 @@ gufw
 htop
 hspell
 iftop
-indicator-kdeconnect
 inotify-tools
 iotop
 kdeconnect

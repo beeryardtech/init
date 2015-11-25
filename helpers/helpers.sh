@@ -46,11 +46,12 @@ die()
 # $ url="http://example.com/file.deb"
 # $ path=$( get_path_from_url $url )
 # $ ## Result: ~/tmp/file.deb
+#```
 ##
 get_path_from_url()
 {
     local url=$1
-    local dir="~/tmp/"
+    local dir="$HOME/tmp/"
     local name=$( basename "$url" )
 
     echo "${dir}/${name}"

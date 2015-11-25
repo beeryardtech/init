@@ -32,7 +32,7 @@ get_vim()
 {
     local repo=$1
     local dry=$2
-    local url="https://vim.googlecode.com/hg/"
+    local url="https://github.com/vim/vim"
 
     if [[ $dry ]] ; then
         [[ -d "$repo" ]] && exists=true || exists=false
@@ -43,7 +43,7 @@ get_vim()
     fi
 
     if [[ ! -d "$repo" ]] ; then
-        hg clone "$url" "$repo"
+        git clone "$url" "$repo"
         err=$?
         die $err "Failed to clone vim!"
     else
@@ -54,14 +54,9 @@ get_vim()
     pushd "$repo"
 
     # Pull repo
-    hg pull
+    git pull
     err=$?
     die $err "Failed to pull vim repo!"
-
-    # Run update
-    hg update
-    err=$?
-    die $err "Failed to update vim repo!"
 
     popd
 }
@@ -90,7 +85,7 @@ get_ike()
 
 main()
 {
-    #get_vim "$REPOS/vim" $dryrun
-    get_ike "$REPOS/ike" $dryrun
+    get_vim "$REPOS/vim" $dryrun
+    #get_ike "$REPOS/ike" $dryrun
 }
 main

@@ -16,21 +16,21 @@ optional arguments:
 -n    Test run
 
 EOF
-
-dryrun=
-optstring=hn
-while getopts $optstring opt ; do
-    case $opt in
-    h) echo "$USAGE" ; exit 255 ;;
-    n) dryrun=true ;;
-    esac
-done
-
 dest=/home/tgoldie/
 movedir=/home/tgoldie/tmp/moved
 root=/home/tgoldie/Dropbox/repos/beeryardtech/scripts/dots
-
 LINK_LIST="$CURRENT_DIR/files/link_list.txt"
+
+dryrun=
+optstring=f:hnr:
+while getopts $optstring opt ; do
+    case $opt in
+    	f) LINK_LIST=$OPTARG ; echo "Updated link list file $LINK_LIST" ;; 
+	h) echo "$USAGE" ; exit 255 ;;
+    	n) dryrun=true ;;
+        r) root=$OPTARG ; echo "Updated root directory to $root" ;;
+    esac
+done
 
 do_linkify()
 {

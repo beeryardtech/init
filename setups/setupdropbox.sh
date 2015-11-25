@@ -19,7 +19,7 @@ EOF
 ##
 # Values
 ##
-SCRIPT="~/.dropbox-dist/dropboxd"
+SCRIPT="$HOME/.dropbox-dist/dropboxd"
 NORM_EXCLUDE=${CURRENT_DIR}/../files/dropbox_norm_exclude.txt
 PORTABLE_EXCLUDE=${CURRENT_DIR}/../files/dropbox_portable_exclude.txt
 REPO="~/repos/dropbox"

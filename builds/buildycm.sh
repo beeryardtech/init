@@ -25,12 +25,12 @@ done
 ##
 # Values
 ##
-REPO=~/.vim/bundle/YouCompleteMe
+REPO="$HOME/.vim/bundle/YouCompleteMe"
 
 check_ycm()
 {
     local repo="$1"
-    local script="${repo}/install.sh"
+    local script="${repo}/install.py"
 
     if [[ ! -d "$repo" ]] ; then
         die 1 "YCM repo does not exist! Dir: $repo"
@@ -39,6 +39,8 @@ check_ycm()
     elif [[ ! -x "$script" ]] ; then
         die 1 "Install script is not executable! script: $script"
     fi
+
+    echo "YCM check is successful"
 }
 
 build_ycm()
@@ -51,7 +53,7 @@ build_ycm()
         return
     fi
 
-    ./installs.sh "$args"
+    ./install.py "$args"
     err=$?
     die $err "YCM install script failed! Args: $args"
 }

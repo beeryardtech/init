@@ -117,6 +117,7 @@ install_tern()
 
 main()
 {
+    mkdir -p "$BUNDLE"
 
     get_vundle "$URL_VUNDLE" "$REPO_VUNDLE" $dryrun
     get_plugins $dryrun

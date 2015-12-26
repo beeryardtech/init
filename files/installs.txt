@@ -41,6 +41,8 @@ k3b
 kdeconnect
 kdiff3
 keepass2
+keepass2-plugin-application-indicator
+keepass2-plugin-launcher
 kile
 kile-doc
 launchpad-getkeys
@@ -110,6 +112,7 @@ python3-dev
 python3-requests
 qct
 rdesktop
+rlwrap
 ruby
 ruby-compass
 ruby-sqlite3

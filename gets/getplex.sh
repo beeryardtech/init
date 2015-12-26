@@ -5,7 +5,7 @@ source "$CURRENT_DIR/../helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
-Gets the newest version of TeamViewer. Uses `wget` to download the deb
+Gets the newest version of Plex Server. Uses `wget` to download the deb
 package and then uses `dpkg -i` to install it.
 
 optional arguments:
@@ -23,18 +23,17 @@ while getopts $optstring opt ; do
     esac
 done
 
-URL_TV="http://download.teamviewer.com/download/teamviewer_i386.deb"
+URL_PLEX="https://downloads.plex.tv/plex-media-server/0.9.12.19.1537-f38ac80/plexmediaserver_0.9.12.19.1537-f38ac80_amd64.deb"
 
 main()
 {
-    # Needs the 32bit version
     if [[ $dryrun ]] ; then
-        echo "Url: $URL_TV"
+        echo "Url: $URL_PLEX"
         return
     fi
 
-    $CURRENT_DIR/../helpers/getdeb.sh $URL_TV
+    $CURRENT_DIR/../helpers/getdeb.sh $URL_PLEX
     err=$?
-    die $err "Failed to get TeamViewer!"
+    die $err "Failed to get Plex!"
 }
 main

@@ -109,14 +109,21 @@ update()
 ##
 install()
 {
-    local assume=$1
-    local dry=$2
+    local installs=$1
+    local assume=$2
+    local dry=$3
 
     if [[ $dry ]] ; then
-        echo "Install path: ${INSTALLS}"
+        echo "Install path: ${installs}"
+        return 0
     fi
 
-    sudo apt-get $assume install $(< ${INSTALLS} )
+    if [[ ! -f "${installs}" ]] ; then
+        err=1
+        die $err "The installs file does not exist!"
+    fi
+
+    sudo apt-get $assume install $(< ${installs} )
     err=$?
     die $err "apt-get INSTALL failed!"
 }
@@ -129,14 +136,21 @@ install()
 ##
 remove()
 {
-    local assume=$1
-    local dry=$2
+    local removes=$1
+    local assume=$2
+    local dry=$3
 
     if [[ $dry ]] ; then
-        echo "Remove path: ${REMOVES}"
+        echo "Remove path: ${removes}"
+        return 0
     fi
 
-    sudo apt-get $assume remove $(< ${REMOVES} )
+    if [[ ! -f "${removes}" ]] ; then
+        err=1
+        die $err "The removes file does not exist!"
+    fi
+
+    sudo apt-get $assume remove $(< ${removes} )
     err=$?
     die $err "apt-get REMOVE failed!"
 }
@@ -176,15 +190,15 @@ autoremove()
 main()
 {
     if [[ $install_only ]] ; then
-        install $ASSUME $dryrun
+        install $INSTALLS $ASSUME $dryrun
         exit 0
     fi
 
     # Run everything else
     hold $ASSUME $dryrun
     get_keys $ASSUME $dryrun
-    install $ASSUME $dryrun
-    remove $ASSUME $dryrun
+    install $INSTALLS $ASSUME $dryrun
+    remove $REMOVES $ASSUME $dryrun
     dist $ASSUME $dryrun
     autoremove $ASSUME $dryrun
 }

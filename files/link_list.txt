@@ -15,7 +15,7 @@ _NERDTreeBookmarks.txt
 _npmrc.txt
 _profile.txt
 _tmux.conf.txt
-_tmux.conf.tdiff.txt
+_tmux.conf.tmuxhome.txt
 _tmux.conf.vimui.txt
 _vimperatorrc.txt
 _vimrc.txt
@@ -23,12 +23,11 @@ _vimrc.config.txt
 _vimrc.funcs.txt
 _vimrc.js.txt
 _vimrc.plugins.txt
+_vimrc.python.txt
 _vrapperrc.txt
 _dosbox
 _emacs.d
 _lein
-_pcsx/memcards/
-_pcsx/pcsx.cfg
 _ssh
 _config/KeePass/KeePass.config.xml
 _config/gedit/accels.txt
@@ -47,8 +46,6 @@ _kde/share/config/kdiff3rc.txt
 _kde/share/config/kilerc.txt
 _kde/share/config/konsolerc.txt
 _kde/share/config/okularrc.txt
-_mpd
-_ncmpcpp
 _purple/accounts.xml
 _purple/prefs.xml
 _purple/accels

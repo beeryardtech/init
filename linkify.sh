@@ -1,7 +1,7 @@
 #!/bin/bash -
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$CURRENT_DIR/../helpers/helpers.sh"
+source "$CURRENT_DIR/helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
 read -r -d '' USAGE << "EOF"
@@ -16,17 +16,18 @@ optional arguments:
 -n    Test run
 
 EOF
-dest=/home/tgoldie/
-movedir=/home/tgoldie/tmp/moved
-root=/home/tgoldie/Dropbox/repos/beeryardtech/scripts/dots
+
+dest="$HOME"
+movedir="$HOME/tmp/moved"
+root="$HOME/Dropbox/repos/beeryardtech/dots"
 LINK_LIST="$CURRENT_DIR/files/link_list.txt"
 
 dryrun=
 optstring=f:hnr:
 while getopts $optstring opt ; do
     case $opt in
-    	f) LINK_LIST=$OPTARG ; echo "Updated link list file $LINK_LIST" ;; 
-	h) echo "$USAGE" ; exit 255 ;;
+    	f) LINK_LIST=$OPTARG ; echo "Updated link list file $LINK_LIST" ;;
+        h) echo "$USAGE" ; exit 255 ;;
     	n) dryrun=true ;;
         r) root=$OPTARG ; echo "Updated root directory to $root" ;;
     esac
@@ -65,25 +66,28 @@ do_linkify()
 
         if [[ ! -d $finalDestDir ]] ; then
             echo "Final Dest Dir did not exist: $finalDestDir"
-            mkdir -p $finalDestDir
+
+            [[ $dryrun ]] || mkdir -p $finalDestDir
+
             echo "Final Dest Dir created!"
         fi
 
         # If symlink of the same name already exists then rm it first
         if [[ -h ${finalDest} ]] ; then
             echo "*** Deleting $finalDest - "
-            rm $finalDest
+            [[ $dryrun ]] || rm $finalDest
         fi
 
         # If file or dir exists move
         if [[ -f ${finalDest} || -a ${dotFileStripd} ]] ; then
             echo "*** Moving $finalDest to $movedir - "
-            mv $finalDest $movedir
+            [[ $dryrun ]] || mv $finalDest $movedir
         fi
 
-        echo -e "Creating link from $dotFile to $finalDest \n"
         echo "Root: $root dest: $dest"
-        ln -s "$root/$dotFile" "${finalDest}"
+        echo
+        echo "Creating link from $root/$dotFile to $finalDest"
+        [[ $dryrun ]] || ln -s "$root/$dotFile" "${finalDest}"
     done
 }
 

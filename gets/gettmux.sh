@@ -28,6 +28,7 @@ done
 ##
 # Values
 ##
+GET_DEB=$CURRENT_DIR/../helpers/getdeb.sh
 TPM_DIR=~/.tmux/plugins/tpm
 URL_TMUX="http://ftp.us.debian.org/debian/pool/main/t/tmux/tmux_2.0-3~bpo8+1_amd64.deb"
 URL_TPM="https://github.com/tmux-plugins/tpm"
@@ -40,7 +41,7 @@ get_tmux()
         echo "Url: $URL_TMUX"
         return
     fi
-    $CURRENT_DIR/../helpers/getdeb $URL_TMUX
+    $GET_DEB $URL_TMUX
 }
 
 get_tpm()
@@ -58,6 +59,7 @@ get_tpm()
 
     # Now get the tmux plugin manager
     if [[ ! -d "$repo" ]] ; then
+        mkdir -p "$repo"
         git clone $url "$repo"
     else
         echo "Directory exists. Not cloning."

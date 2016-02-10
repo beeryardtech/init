@@ -1,3 +1,4 @@
+adobe-flashplugin
 mpd
 mplayer
 pinta

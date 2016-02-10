@@ -3,20 +3,20 @@
 #############################################################
 
 ###### Ubuntu Main Repos
-deb http://us.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
-deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main
+deb http://us.archive.ubuntu.com/ubuntu/ wily main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ wily main
 
 ###### Ubuntu Update Repos
-deb http://us.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
-deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb http://us.archive.ubuntu.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-security main
+deb http://us.archive.ubuntu.com/ubuntu/ wily-security main restricted universe multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ wily-updates main restricted universe multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ wily-proposed main restricted universe multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ wily-security main
 
 ###### Ubuntu Partner Repo
-deb http://archive.canonical.com/ubuntu trusty partner
+deb http://archive.canonical.com/ubuntu wily partner
 
 ###### Ubuntu Extras Repo
-deb http://extras.ubuntu.com/ubuntu trusty main
+deb http://extras.ubuntu.com/ubuntu wily main
 
 ##############################################################
 ##################### UNOFFICIAL  REPOS ######################
@@ -30,17 +30,17 @@ deb http://ppa.launchpad.net/yannubuntu/boot-repair/ubuntu saucy main
 
 #### Play on Linux
 ## Game player - wraps WINE
-deb http://deb.playonlinux.com/ trusty main
+deb http://deb.playonlinux.com/ wily main
 
 #### Cairo Composite Manager PPA - http://cairo-compmgr.tuxfamily.org/
 deb http://ppa.launchpad.net/shnatsel/cairo-compmgr/ubuntu saucy main
 
 ### Another Cinnamon PPA
-deb http://ppa.launchpad.net/lestcape/cinnamon/ubuntu trusty main
-deb-src http://ppa.launchpad.net/lestcape/cinnamon/ubuntu trusty main
+deb http://ppa.launchpad.net/lestcape/cinnamon/ubuntu wily main
+deb-src http://ppa.launchpad.net/lestcape/cinnamon/ubuntu wily main
 
 #### Gimp PPA - https://launchpad.net/~otto-kesselgulasch/+archive/gimp
-deb http://ppa.launchpad.net/otto-kesselgulasch/gimp/ubuntu trusty main
+deb http://ppa.launchpad.net/otto-kesselgulasch/gimp/ubuntu wily main
 
 #### Google Chrome Browser - http://www.google.com/linuxrepositories/
 deb http://dl.google.com/linux/chrome/deb/ stable main
@@ -49,22 +49,22 @@ deb http://dl.google.com/linux/chrome/deb/ stable main
 deb http://dl.google.com/linux/earth/deb/ stable main
 
 #### Kubuntu Backports PPA - https://edge.launchpad.net/~kubuntu-ppa/+archive/backports
-deb http://ppa.launchpad.net/kubuntu-ppa/backports/ubuntu trusty main
+deb http://ppa.launchpad.net/kubuntu-ppa/backports/ubuntu wily main
 
 #### Kubuntu Beta Backports PPA - https://launchpad.net/~kubuntu-ppa/+archive/beta
-deb http://ppa.launchpad.net/kubuntu-ppa/beta/ubuntu trusty main
+deb http://ppa.launchpad.net/kubuntu-ppa/beta/ubuntu wily main
 
 #### Kubuntu Updates PPA - https://edge.launchpad.net/~kubuntu-ppa/+archive/ppa
-deb http://ppa.launchpad.net/kubuntu-ppa/ppa/ubuntu trusty main
+deb http://ppa.launchpad.net/kubuntu-ppa/ppa/ubuntu wily main
 
 #### LibreOffice PPA - http://www.documentfoundation.org/download/
-deb http://ppa.launchpad.net/libreoffice/ppa/ubuntu trusty main
+deb http://ppa.launchpad.net/libreoffice/ppa/ubuntu wily main
 
 #### MultiSystem - http://liveusb.info/dotclear/
 deb http://liveusb.info/multisystem/depot all main
 
 #### Oracle Java (JDK) Installer PPA - http://www.webupd8.org/2012/01/install-oracle-java-jdk-7-in-ubuntu-via.html
-deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
+deb http://ppa.launchpad.net/webupd8team/java/ubuntu wily main
 
 #### Samsung Unified Linux Driver Repository (SULDR) - http://www.bchemnet.com/suldr/index.html
 deb http://www.bchemnet.com/suldr/ debian extra
@@ -73,35 +73,32 @@ deb http://www.bchemnet.com/suldr/ debian extra
 deb http://repository.spotify.com stable non-free
 
 #### Ubuntu Tweak PPA - http://ubuntu-tweak.com/
-deb http://ppa.launchpad.net/tualatrix/ubuntu trusty main
+deb http://ppa.launchpad.net/tualatrix/ubuntu wily main
 
 #### UNetbootin PPA - http://unetbootin.sourceforge.net/
-deb http://ppa.launchpad.net/gezakovacs/ppa/ubuntu trusty main
+deb http://ppa.launchpad.net/gezakovacs/ppa/ubuntu wily main
 
 #### Unsettings PPA - http://www.florian-diesch.de/software/unsettings/
-deb http://ppa.launchpad.net/diesch/testing/ubuntu trusty main
+deb http://ppa.launchpad.net/diesch/testing/ubuntu wily main
 
 #### Webmin - http://www.webmin.com
 deb http://download.webmin.com/download/repository sarge contrib
 
 #### WebUpd8 PPA - http://www.webupd8.org/
-deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu trusty main
+deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu wily main
 
 #### Xfce 4.10 PPA - https://launchpad.net/~xubuntu-dev/+archive/xfce-4.10
 #deb http://ppa.launchpad.net/xubuntu-dev/xfce-4.10/saucy saucy main
 
 ####### 3rd Party Source Repos
-#### Gimp PPA (Source) - https://launchpad.net/~otto-kesselgulasch/+archive/gimp
-deb-src http://ppa.launchpad.net/otto-kesselgulasch/gimp/ubuntu trusty main
-
 #### GNOME3 Extra Apps PPA (Source) - https://launchpad.net/~gnome3-team/+archive/gnome3
 ## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B1510FD
-deb http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu trusty main
-deb-src http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu trusty main
+deb http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu wily main
+deb-src http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu wily main
 
 #### Tor: anonymity online (Source) - http://www.torproject.org/
-#deb http://deb.torproject.org/torproject.org trusty main
-#deb-src http://deb.torproject.org/torproject.org trusty main
+#deb http://deb.torproject.org/torproject.org wily main
+#deb-src http://deb.torproject.org/torproject.org wily main
 
 #############################################################
 ################### EXTRA RANDOM REPOS ######################
@@ -110,23 +107,18 @@ deb-src http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu trusty main
 ### Google Talk Plugin
 deb http://dl.google.com/linux/talkplugin/deb/ stable main
 
-### Pithos - http://kevinmehall.net/ - Pandora radio client
-## Run this command: gpg --keyserver subkeys.pgp.net --recv 5C8B1281 && gpg -
-deb http://ppa.launchpad.net/pithos/ppa/ubuntu saucy main
-deb-src http://ppa.launchpad.net/pithos/ppa/ubuntu saucy main
-
 ### Valve Steam - - Steam Games
 # deb http://repo.steampowered.com/steam/ precise steam
 # deb-src http://repo.steampowered.com/steam/ precise steam
 
-### NodeJs Launch - Newest builds not in normal packages
-deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main
-deb-src http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main
+### NodeJs NodeSource
+deb https://deb.nodesource.com/node_4.x wily main
+deb-src https://deb.nodesource.com/node_4.x wily main
 
 ### PPA for KDE-Connect
 # https://code.launchpad.net/~vikoadi/+archive/ubuntu/ppa/
 # https://community.kde.org/KDEConnect
-deb http://ppa.launchpad.net/vikoadi/ppa/ubuntu trusty main
+deb http://ppa.launchpad.net/vikoadi/ppa/ubuntu wily main
 
 ### PPA for Montrix
 deb http://apt.izzysoft.de/ubuntu generic universe

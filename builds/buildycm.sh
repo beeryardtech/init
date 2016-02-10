@@ -25,7 +25,7 @@ done
 ##
 # Values
 ##
-REPO="$HOME/.vim/bundle/YouCompleteMe"
+REPO="$HOME/.bundle/YouCompleteMe"
 
 check_ycm()
 {

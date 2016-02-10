@@ -13,6 +13,7 @@ Handles the install of all needed packages from apt-get.
 
 optional arguments:
 -f    Path to install file
+-k    Update keys only
 -h    Print this help and exit
 -i    Run installs only
 -n    Test run, sets apt-get to simulation mode
@@ -28,14 +29,15 @@ REMOVES="$CURRENT_DIR/files/removes.txt"
 
 dryrun=
 ASSUME="--assume-yes"
-optstring=f:hinr:
+optstring=f:hiknr:
 while getopts $optstring opt ; do
     case $opt in
         f) INSTALLS=$OPTARG ; echo "Updating install file to $INSTALLS" ;;
+        k) keys_only=true ;;
         h) echo "$USAGE" ; exit 255 ;;
         i) install_only=true ;;
         n) echo "In DryRun Mode" ; dryrun=true ; ASSUME="--dry-run" ;;
-        f) REMOVES=$OPTARG ; echo "Updating remove file to $REMOVES" ;;
+        r) REMOVES=$OPTARG ; echo "Updating remove file to $REMOVES" ;;
     esac
 done
 
@@ -78,11 +80,24 @@ get_keys()
 
     sudo apt-get $assume install launchpad-getkeys
     err=$?
-    die $err "INSTALL GETKEYS failed!"
+    if [[ $err > 0 ]] ; then
+        echo "First try to install launchpad-getkeys failed."
+        echo "Going to update and try again!"
+        sudo apt-get update
+        sudo apt-get $assume install launchpad-getkeys
+        err=$?
+
+        # Now if that fails, die
+        die $err "INSTALL GETKEYS failed!"
+    fi
 
     sudo launchpad-getkeys
     err=$?
     die $err "launchpad-getkeys failed!"
+
+    wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+    err=$?
+    die $err "Failed to get the nodesource key!"
 }
 
 ##
@@ -189,8 +204,16 @@ autoremove()
 
 main()
 {
+    # Should not require any user interactions
+    export DEBIAN_FRONTEND=noninteractive
+
     if [[ $install_only ]] ; then
         install $INSTALLS $ASSUME $dryrun
+        exit 0
+    fi
+
+    if [[ $keys_only ]] ; then
+        get_keys $ASSUME $dryrun
         exit 0
     fi
 

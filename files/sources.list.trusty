@@ -92,9 +92,6 @@ deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu trusty main
 #deb http://ppa.launchpad.net/xubuntu-dev/xfce-4.10/saucy saucy main
 
 ####### 3rd Party Source Repos
-#### Gimp PPA (Source) - https://launchpad.net/~otto-kesselgulasch/+archive/gimp
-deb-src http://ppa.launchpad.net/otto-kesselgulasch/gimp/ubuntu trusty main
-
 #### GNOME3 Extra Apps PPA (Source) - https://launchpad.net/~gnome3-team/+archive/gnome3
 deb http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu trusty main
 deb-src http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu trusty main
@@ -110,17 +107,13 @@ deb-src http://ppa.launchpad.net/gnome3-team/gnome3/ubuntu trusty main
 ### Google Talk Plugin
 deb http://dl.google.com/linux/talkplugin/deb/ stable main
 
-### Pithos - http://kevinmehall.net/ - Pandora radio client
-deb http://ppa.launchpad.net/pithos/ppa/ubuntu saucy main
-deb-src http://ppa.launchpad.net/pithos/ppa/ubuntu saucy main
-
 ### Valve Steam - - Steam Games
 # deb http://repo.steampowered.com/steam/ precise steam
 # deb-src http://repo.steampowered.com/steam/ precise steam
 
-### NodeJs Launch - Newest builds not in normal packages
-deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main
-deb-src http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main
+### NodeJs NodeSource
+deb https://deb.nodesource.com/node_4.x trusty main
+deb-src https://deb.nodesource.com/node_4.x trusty main
 
 ### PPA for KDE-Connect
 # https://code.launchpad.net/~vikoadi/+archive/ubuntu/ppa/
@@ -132,3 +125,7 @@ deb http://apt.izzysoft.de/ubuntu generic universe
 
 ### PPA KeePass2 Plugins
 deb http://ppa.launchpad.net/dlech/keepass2-plugins-beta/ubuntu trusty main
+
+### PPA for Haskell compiler
+deb http://ppa.launchpad.net/hvr/ghc/ubuntu trusty main
+

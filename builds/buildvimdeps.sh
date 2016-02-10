@@ -26,7 +26,7 @@ done
 ##
 # Values
 ##
-BUNDLE="${HOME}/.vim/bundle"
+BUNDLE="${HOME}/.bundle"
 
 # Tern
 REPO_TERN="${BUNDLE}/tern_for_vim"
@@ -72,7 +72,8 @@ get_plugins()
         return
     fi
 
-    vim "$args"
+    # Do not put $args in quotes. Breaks it.
+    vim $args
     err=$?
     die $err "Failed to install plugins!"
 }

@@ -15,6 +15,33 @@ cleanup()
 
 ##
 # @description
+# Checks to see if a given script is ran as sudo (or root).
+# If not exits with error code 1 and outputs message to STDERR.
+#
+# ```
+# $ cat "myscript.sh"
+#  check_sudo
+#  echo "my user name $(whoami)"
+#
+# $ sudo myscript.sh
+#  my user name root
+#
+# $ myscript.sh
+#  Must run as root!
+# ```
+##
+check_sudo()
+{
+    local msg="Must Run this script as root!"
+
+    if [[ $(whoami) != "root" ]] ; then
+        echo $msg >&2
+        exit 1
+    fi
+}
+
+##
+# @description
 # Checks to see if error code is non-zero. If so, echo message and exit
 # with the given error code.
 #

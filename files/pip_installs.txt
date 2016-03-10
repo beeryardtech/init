@@ -2,4 +2,5 @@ apiclient
 discovery
 oauth2client
 requests
+taskwarrior-inthe.am
 uritemplate.py

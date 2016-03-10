@@ -4,6 +4,8 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$CURRENT_DIR/helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
+check_sudo
+
 read -r -d '' USAGE << "EOF"
 Handles the install of all needed packages from apt-get.
 
@@ -57,7 +59,7 @@ hold()
     if [[ $dry ]] ; then
         echo "Found vim: $find_vim"
     else
-        echo "vim hold" | sudo dpkg --set-selections
+        echo "vim hold" | dpkg --set-selections
     fi
 
     if [[ $find_vim ]] ; then
@@ -78,24 +80,24 @@ get_keys()
     local assume=$1
     local dry=$2
 
-    sudo apt-get $assume install launchpad-getkeys
+    apt-get $assume install launchpad-getkeys
     err=$?
     if [[ $err > 0 ]] ; then
         echo "First try to install launchpad-getkeys failed."
         echo "Going to update and try again!"
-        sudo apt-get update
-        sudo apt-get $assume install launchpad-getkeys
+        apt-get update
+        apt-get $assume install launchpad-getkeys
         err=$?
 
         # Now if that fails, die
         die $err "INSTALL GETKEYS failed!"
     fi
 
-    sudo launchpad-getkeys
+    launchpad-getkeys
     err=$?
     die $err "launchpad-getkeys failed!"
 
-    wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+    wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
     err=$?
     die $err "Failed to get the nodesource key!"
 }
@@ -111,7 +113,7 @@ update()
     local assume=$1
     local dry=$2
 
-    sudo apt-get update
+    apt-get update
     err=$?
     die $err "apt-get UPDATE failed!"
 }
@@ -138,7 +140,7 @@ install()
         die $err "The installs file does not exist!"
     fi
 
-    sudo apt-get $assume install $(< ${installs} )
+    apt-get $assume install $(< ${installs} )
     err=$?
     die $err "apt-get INSTALL failed!"
 }
@@ -165,7 +167,7 @@ remove()
         die $err "The removes file does not exist!"
     fi
 
-    sudo apt-get $assume remove $(< ${removes} )
+    apt-get $assume remove $(< ${removes} )
     err=$?
     die $err "apt-get REMOVE failed!"
 }
@@ -181,7 +183,7 @@ dist()
     local assume=$1
     local dry=$2
 
-    sudo apt-get $assume dist-upgrade
+    apt-get $assume dist-upgrade
     err=$?
     die $err "apt-get DIST-UPGRADE failed!"
 }
@@ -197,7 +199,7 @@ autoremove()
     local assume=$1
     local dry=$2
 
-    sudo apt-get $assume autoremove
+    apt-get $assume autoremove
     err=$?
     die $err "apt-get AUTOREMOVE failed!"
 }
@@ -206,6 +208,7 @@ main()
 {
     # Should not require any user interactions
     export DEBIAN_FRONTEND=noninteractive
+
 
     if [[ $install_only ]] ; then
         install $INSTALLS $ASSUME $dryrun

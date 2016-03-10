@@ -122,3 +122,6 @@ deb http://ppa.launchpad.net/vikoadi/ppa/ubuntu wily main
 
 ### PPA for Montrix
 deb http://apt.izzysoft.de/ubuntu generic universe
+
+### PPA KeePass2 Plugins
+deb http://ppa.launchpad.net/dlech/keepass2-plugins-beta/ubuntu wily main

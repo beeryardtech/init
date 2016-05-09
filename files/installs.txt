@@ -12,6 +12,7 @@ davfs2
 dconf-cli
 dconf-editor
 debhelper
+dh-autoreconf
 dolphin
 dosbox
 emacs
@@ -50,6 +51,7 @@ libbonoboui2-dev
 libc6
 libcairo2-dev
 libcroco-tools
+libcurl4-gnutls-dev
 libdvdread4
 libedit-dev
 libedit2
@@ -58,8 +60,10 @@ libgcc1
 libgnome2-dev
 libgnomeui-dev
 libgtk2.0-dev
+libjsoncpp-dev
 libk3b6-extracodecs
 libncurses5
+libncursesw5-dev
 libperl-critic-perl
 libsm6
 libxdamage1

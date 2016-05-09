@@ -24,6 +24,7 @@ _vimrc.funcs.txt
 _vimrc.js.txt
 _vimrc.plugins.txt
 _vimrc.python.txt
+_vimrc.task.txt
 _vrapperrc.txt
 _dosbox
 _emacs.d

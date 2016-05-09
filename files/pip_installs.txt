@@ -1,6 +1,12 @@
 apiclient
+python-dateutil
+pytz
 discovery
+gcalcli
 oauth2client
+parsedatetime
+python-gflags
 requests
 taskwarrior-inthe.am
 uritemplate.py
+vobject

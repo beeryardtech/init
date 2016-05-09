@@ -16,7 +16,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ wily-security main
 deb http://archive.canonical.com/ubuntu wily partner
 
 ###### Ubuntu Extras Repo
-deb http://extras.ubuntu.com/ubuntu wily main
+#deb http://extras.ubuntu.com/ubuntu wily main
 
 ##############################################################
 ##################### UNOFFICIAL  REPOS ######################
@@ -30,20 +30,20 @@ deb http://ppa.launchpad.net/yannubuntu/boot-repair/ubuntu saucy main
 
 #### Play on Linux
 ## Game player - wraps WINE
-deb http://deb.playonlinux.com/ wily main
+#deb http://deb.playonlinux.com/ wily main
 
 #### Cairo Composite Manager PPA - http://cairo-compmgr.tuxfamily.org/
 deb http://ppa.launchpad.net/shnatsel/cairo-compmgr/ubuntu saucy main
 
 ### Another Cinnamon PPA
-deb http://ppa.launchpad.net/lestcape/cinnamon/ubuntu wily main
-deb-src http://ppa.launchpad.net/lestcape/cinnamon/ubuntu wily main
+#deb http://ppa.launchpad.net/lestcape/cinnamon/ubuntu wily main
+#deb-src http://ppa.launchpad.net/lestcape/cinnamon/ubuntu wily main
 
 #### Gimp PPA - https://launchpad.net/~otto-kesselgulasch/+archive/gimp
 deb http://ppa.launchpad.net/otto-kesselgulasch/gimp/ubuntu wily main
 
 #### Google Chrome Browser - http://www.google.com/linuxrepositories/
-deb http://dl.google.com/linux/chrome/deb/ stable main
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 
 #### Google Earth - http://www.google.com/linuxrepositories/
 deb http://dl.google.com/linux/earth/deb/ stable main
@@ -73,7 +73,7 @@ deb http://www.bchemnet.com/suldr/ debian extra
 deb http://repository.spotify.com stable non-free
 
 #### Ubuntu Tweak PPA - http://ubuntu-tweak.com/
-deb http://ppa.launchpad.net/tualatrix/ubuntu wily main
+#deb http://ppa.launchpad.net/tualatrix/ubuntu wily main
 
 #### UNetbootin PPA - http://unetbootin.sourceforge.net/
 deb http://ppa.launchpad.net/gezakovacs/ppa/ubuntu wily main

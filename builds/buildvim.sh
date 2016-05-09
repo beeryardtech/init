@@ -17,8 +17,8 @@ dryrun=
 optstring=hn
 while getopts $optstring opt ; do
     case $opt in
-    h) echo -e "$USAGE" ; exit 255 ;;
-    n) dryrun=true ;;
+        h) echo -e "$USAGE" ; exit 255 ;;
+        n) dryrun=true ;;
     esac
 done
 

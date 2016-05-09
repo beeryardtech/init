@@ -4,6 +4,7 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$CURRENT_DIR/helpers/helpers.sh"
 trap cleanup SIGINT SIGTERM
 
+## Required for apt-get
 check_sudo
 
 read -r -d '' USAGE << "EOF"

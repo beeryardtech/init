@@ -1,7 +1,10 @@
 CPAN
+Capture::Tiny
 Crypt::OpenSSL::RSA
 File::KeePass.pm
+Log::Log4Perl
 JSON.pm
 Sort::Naturally
 Term::ReadKey.pm
+Term::ReadLine::Gnu
 Term::ShellUI.pm

@@ -8,7 +8,6 @@
 --enable-multibyte
 --enable-largefile
 --prefix=/usr
---with-lua
 --with-luajit
---with-python-config-dirl=/usr/lib/python2.7
+--with-python-config-dir=/usr/lib/python2.7
 --with-x=yes

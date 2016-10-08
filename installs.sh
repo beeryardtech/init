@@ -31,7 +31,7 @@ INSTALLS="$CURRENT_DIR/files/installs.txt"
 REMOVES="$CURRENT_DIR/files/removes.txt"
 
 dryrun=
-ASSUME="--assume-yes"
+ASSUME="--assume-yes --force-yes"
 optstring=f:hiknr:
 while getopts $optstring opt ; do
     case $opt in
@@ -55,23 +55,17 @@ hold()
     local assume=$1
     local dry=$2
 
-    local find_vim=$( dpkg --list | grep -q "vim" )
-
     if [[ $dry ]] ; then
         echo "Found vim: $find_vim"
     else
-        echo "vim hold" | dpkg --set-selections
-    fi
-
-    if [[ $find_vim ]] ; then
-        echo "**** VIM package found. Held back"
-    else
-        echo "**** VIM package not found. Held"
+        sudo apt-mark hold vim
+        sudo apt-mark hold vim-common
+        sudo apt-mark hold vim-runtime
     fi
 }
 
 ##
-# @name update
+# @name get_keys
 # @param {string} assume Either assume-yes or run simulate mode
 # @description
 # Install launchpad getkeys and run that.
@@ -111,9 +105,6 @@ get_keys()
 ##
 update()
 {
-    local assume=$1
-    local dry=$2
-
     apt-get update
     err=$?
     die $err "apt-get UPDATE failed!"
@@ -222,8 +213,9 @@ main()
     fi
 
     # Run everything else
-    hold $ASSUME $dryrun
-    get_keys $ASSUME $dryrun
+    hold $dryrun
+    update
+    #get_keys $ASSUME $dryrun
     install $INSTALLS $ASSUME $dryrun
     remove $REMOVES $ASSUME $dryrun
     dist $ASSUME $dryrun

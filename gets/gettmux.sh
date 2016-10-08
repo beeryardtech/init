@@ -108,7 +108,7 @@ get_tpm_plugins()
 
 main()
 {
-    get_tmux $dryrun
+    #get_tmux $dryrun
     get_tpm "$TPM_DIR" $dryrun
     get_tpm_plugins "$TPM_DIR" $dryrun
 }

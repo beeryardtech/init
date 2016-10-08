@@ -1,7 +1,7 @@
 aircrack-ng
 autossh
-baloo
 banshee
+bash-completion
 bison
 checkinstall
 cifs-utils
@@ -26,7 +26,6 @@ ghc
 gimp
 git
 gksu
-google-chrome-beta
 gufw
 hspell
 htop
@@ -63,6 +62,7 @@ libgtk2.0-dev
 libjsoncpp-dev
 libk3b6-extracodecs
 libncurses5
+libncurses5-dev
 libncursesw5-dev
 libperl-critic-perl
 libsm6
@@ -77,8 +77,6 @@ make
 maven
 mercurial
 mutt
-nfs-common
-nfs-kernel-server
 node-sqlite3
 nodejs
 nodejs-dbg
@@ -95,7 +93,6 @@ perl-doc
 perl-modules
 pidgin
 pidgin-plugin-pack
-playonlinux
 powertop
 python-dev
 python-pip
@@ -117,13 +114,11 @@ spotify-client
 sqliteman
 sqliteman-doc
 task
-texlive-full
 tortoisehg
 traceroute
 transcode
 tree
 ubuntu-restricted-extras
-vit
 vlc
 wine
 xclip
